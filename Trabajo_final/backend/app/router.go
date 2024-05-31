@@ -1,11 +1,22 @@
 package app
 
 import (
-	"backend/controllers/users"
-
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	log "github.com/sirupsen/logrus"
 )
 
-func MapRoutes(engine *gin.Engine) {
-	engine.POST("/users/login", users.Login)
+var (
+	router *gin.Engine
+)
+
+func init() {
+	router = gin.Default()
+	router.Use(cors.Default())
+}
+
+func StartApplication() {
+	mapUrls()
+	log.Info("about to start the application...")
+	router.Run(":8080")
 }
