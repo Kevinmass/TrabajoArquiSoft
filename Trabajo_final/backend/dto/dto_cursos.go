@@ -11,6 +11,7 @@ type CursosDatadto struct {
 	FechaEliminacion  string        `json:"fecha_eliminacion"`
 	FechaModificacion string        `json:"fecha_actualizacion"`
 	UsuarioAdmin      ClientAdminto `json:"usuario_admin"`
+	Estado            bool          `json:"estado"`
 }
 
 type Cursosdto []CursosDatadto
