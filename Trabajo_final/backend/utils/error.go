@@ -22,6 +22,11 @@ type NewBadRequestError struct {
 	Message string `json:"message"`
 }
 
+type NewInternalServerError struct {
+	Message string `json:"message"`
+	Err     error  `json:"error"`
+}
+
 type RestErr struct {
 	Message    string `json:"message"`
 	Code       string `json:"error"`

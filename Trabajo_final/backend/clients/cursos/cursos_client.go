@@ -1,7 +1,6 @@
 package cursos
 
 import (
-	"backend/clients/client"
 	"backend/domain/users"
 
 	"github.com/jinzhu/gorm"
@@ -20,7 +19,7 @@ func GetCursosTotales() ([]users.CursosData, error) {
 	return cursos, nil
 }
 
-func GetCursoPorID(id uint) (*users.CursosData, error) {
+func GetCursoPorID(id int) (*users.CursosData, error) {
 	curso := &users.CursosData{}
 	err := Db.First(curso, id).Error
 	if err != nil {
@@ -61,13 +60,15 @@ func PUTmodificarCurso(curso *users.CursosData) error {
 
 func IsAdmin(cliente *users.ClientData) bool {
 
-	clienteLOG := client.GETloginCliente(cliente)
+	// buscar en la base de datos si el cliente es admin
 
-	err := Db.Find(&clienteLOG, "admin = ?", true).Error
-	if err == nil {
-
-		return true
+	var clienteDB users.ClientData
+	err := Db.Where("user = ?", cliente.Email).First(&clienteDB).Error
+	if err != nil {
+		log.Error("Error getting cliente: ", err)
+		return false
 	}
-	return false
+
+	return clienteDB.Admin
 
 }

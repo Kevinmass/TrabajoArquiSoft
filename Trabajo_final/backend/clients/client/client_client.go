@@ -8,10 +8,13 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-var Db *gorm.DB
+var (
+	Db *gorm.DB
+)
 
 func POSTregistro(cliente *users.ClientData) error {
 	err := Db.Create(cliente).Error
+	PUThashearPassword(cliente)
 	if err != nil {
 		log.Error("Error creating cliente: ", err)
 		return err
@@ -58,11 +61,14 @@ func GETverificarCliente(cliente *users.ClientData) error {
 
 // loginCliente: verifica si el cliente existe en la base de datos y si la contraseña es correcta, login por token
 
-func GETloginCliente(cliente *users.ClientData) users.ClientData {
+func GETloginCliente(cliente1 *users.ClientData) *users.ClientData {
 
-	if err := GETverificarCliente(cliente); err != nil {
-		GETverificarCliente(cliente)
+	if err := GETverificarCliente(cliente1); err != nil {
+		GETverificarCliente(cliente1)
 	}
-	return *cliente
+
+	log.Debug("Cliente logueado: ", cliente1)
+
+	return cliente1
 
 }

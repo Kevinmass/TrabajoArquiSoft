@@ -83,5 +83,7 @@ func (s *clientService) GETloginCliente(cliente *dto.ClientDatadto) (*dto.Client
 
 	clientClients.GETloginCliente(client)
 
+	//verificar si el mail y la contraseña coincide con lo que regresa la funcion GETloginCliente
+
 	return cliente, nil
 }
