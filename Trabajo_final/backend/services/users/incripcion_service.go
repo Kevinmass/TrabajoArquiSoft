@@ -3,12 +3,13 @@ package services
 import (
 	inscripcionClient "backend/clients/inscripcion"
 	"backend/dto"
+	"backend/utils"
 )
 
 type inscripcionService struct{}
 
 type inscripcionServiceInterface interface {
-	POSTinscripcion(relacionU *dto.InscriptosDataDto) error
+	POSTinscripcion(relacionU *dto.InscriptosDataDto) *utils.RestErr
 	GetcursosdelCliente(relacion *dto.InscriptosDataDto) ([]dto.CursosDatadto, error)
 }
 
@@ -20,11 +21,12 @@ func init() {
 	InscripcionService = &inscripcionService{}
 }
 
-func (s *inscripcionService) POSTinscripcion(relacionU *dto.InscriptosDataDto) error {
+func (s *inscripcionService) POSTinscripcion(relacionU *dto.InscriptosDataDto) *utils.RestErr {
 
 	err := inscripcionClient.POSTinscripcion(relacionU.ClienteID, relacionU.CursoID)
-	if err != nil {
-		return err
+
+	if err.StatusCode != 200 {
+		return &utils.RestErr{Message: "Error al inscribirse", StatusCode: err.StatusCode}
 	}
 
 	return nil
@@ -41,11 +43,10 @@ func (s *inscripcionService) GetcursosdelCliente(relacion *dto.InscriptosDataDto
 
 	for i, curso := range cursos {
 		cursosDto[i] = dto.CursosDatadto{
-			ID:            curso.ID,
-			Nombre:        curso.Nombre,
-			Descripcion:   curso.Descripcion,
-			FechaCreacion: curso.FechaCreacion,
-			Estado:        curso.Estado,
+			ID:          curso.ID,
+			Nombre:      curso.Nombre,
+			Descripcion: curso.Descripcion,
+			Estado:      curso.Estado,
 		}
 	}
 

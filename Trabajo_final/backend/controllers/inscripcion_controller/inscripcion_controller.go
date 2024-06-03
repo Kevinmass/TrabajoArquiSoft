@@ -11,13 +11,13 @@ import (
 
 func POSTinscripcion(c *gin.Context) {
 	var (
-		clien_cursoID *dto.InscriptosDataDto
+		clien_cursoID dto.InscriptosDataDto
 	)
 	if err := c.ShouldBindJSON(&clien_cursoID); err != nil {
 		c.JSON(400, "Error al bindear json")
 		return
 	}
-	err := service.InscripcionService.POSTinscripcion(clien_cursoID)
+	err := service.InscripcionService.POSTinscripcion(&clien_cursoID)
 	if err != nil {
 		c.JSON(500, "Error al inscribirse")
 		return

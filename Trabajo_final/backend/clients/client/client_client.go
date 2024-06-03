@@ -13,6 +13,14 @@ var (
 )
 
 func POSTregistro(cliente *users.ClientData) error {
+
+	//si el id es duplicado se incrementa en 1
+	var clienteDB users.ClientData
+	err1 := Db.Where("id = ?", cliente.ID).First(&clienteDB).Error
+	if err1 == nil {
+		cliente.ID = cliente.ID + 1
+	}
+
 	err := Db.Create(cliente).Error
 	PUThashearPassword(cliente)
 	if err != nil {

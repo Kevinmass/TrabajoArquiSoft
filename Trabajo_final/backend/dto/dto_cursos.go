@@ -1,7 +1,7 @@
 package dto
 
 type CursosDatadto struct {
-	ID                int    `json:"id"`
+	ID                uint   `json:"id"`
 	Nombre            string `json:"nombre"`
 	Descripcion       string `json:"descripcion"`
 	ProfesorNombre    string `json:"profesor_nombre"`

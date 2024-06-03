@@ -11,11 +11,12 @@ type cursoService struct{}
 
 type cursoServiceInterface interface {
 	POSTcrearCurso(cursoV *dto.CursoClienteDataDto) (*dto.CursoClienteDataDto, *e.RestErr)
-	IsAdmin(cliente *dto.ClientDatadto) (*e.RestErr, bool)
-	GetCursoPorID(id int) (*dto.CursosDatadto, *e.RestErr)
+	IsAdmin(cliente *dto.CursoClienteDataDto) (*e.RestErr, bool)
+	GetCursoPorID(id uint) (*dto.CursosDatadto, *e.RestErr)
 	GetCursosTotales() ([]dto.CursosDatadto, *e.RestErr)
 	PUTmodificarCurso(cursoV *dto.CursoClienteDataDto) (*dto.CursoClienteDataDto, *e.RestErr)
 	EliminarCurso(cursoV *dto.CursoClienteDataDto) *e.RestErr
+	GetCursosPorNombre(*dto.CursoBusqueda) ([]dto.CursosDatadto, *e.RestErr)
 }
 
 var (
@@ -28,18 +29,13 @@ func init() {
 
 // si el cliente es admin crear curso
 
-func (s *cursoService) IsAdmin(cliente *dto.ClientDatadto) (*e.RestErr, bool) {
+func (s *cursoService) IsAdmin(cliente *dto.CursoClienteDataDto) (*e.RestErr, bool) {
 
 	clienteData := &users.ClientData{
 		User: cliente.User,
 	}
 
 	CheckAdmin := cursoClient.IsAdmin(clienteData)
-	if CheckAdmin == false {
-		return &e.RestErr{Message: "No es admin", StatusCode: 400}, false
-	}
-
-	CheckAdmin = true
 
 	return nil, CheckAdmin
 }
@@ -47,11 +43,22 @@ func (s *cursoService) IsAdmin(cliente *dto.ClientDatadto) (*e.RestErr, bool) {
 func (s *cursoService) POSTcrearCurso(cursoV *dto.CursoClienteDataDto) (*dto.CursoClienteDataDto, *e.RestErr) {
 
 	cursoData := &users.CursosData{
-		ID:            cursoV.ID,
-		Nombre:        cursoV.Nombre,
-		Descripcion:   cursoV.Descripcion,
-		FechaCreacion: cursoV.FechaCreacion,
-		Estado:        cursoV.Estado,
+
+		ID:                cursoV.ID,
+		Nombre:            cursoV.Nombre,
+		Descripcion:       cursoV.Descripcion,
+		FechaCreacion:     cursoV.FechaCreacion,
+		FechaEliminacion:  cursoV.FechaEliminacion,
+		FechaModificacion: cursoV.FechaModificacion,
+
+		Estado: cursoV.Estado,
+	}
+
+	_, CheckAdmin := s.IsAdmin(cursoV)
+
+	if CheckAdmin == false {
+		return nil, &e.RestErr{Message: "No es admin, no puede crear curso", StatusCode: 400}
+
 	}
 
 	err := cursoClient.POSTcrearCurso(cursoData)
@@ -63,7 +70,7 @@ func (s *cursoService) POSTcrearCurso(cursoV *dto.CursoClienteDataDto) (*dto.Cur
 
 }
 
-func (s *cursoService) GetCursoPorID(id int) (*dto.CursosDatadto, *e.RestErr) {
+func (s *cursoService) GetCursoPorID(id uint) (*dto.CursosDatadto, *e.RestErr) {
 
 	curso, err := cursoClient.GetCursoPorID(id)
 	if err != nil {
@@ -71,12 +78,10 @@ func (s *cursoService) GetCursoPorID(id int) (*dto.CursosDatadto, *e.RestErr) {
 	}
 
 	cursoDto := &dto.CursosDatadto{
-		ID:                curso.ID,
-		Nombre:            curso.Nombre,
-		Descripcion:       curso.Descripcion,
-		FechaCreacion:     curso.FechaCreacion,
-		FechaModificacion: curso.FechaModificacion,
-		Estado:            curso.Estado,
+		ID:          curso.ID,
+		Nombre:      curso.Nombre,
+		Descripcion: curso.Descripcion,
+		Estado:      curso.Estado,
 	}
 
 	return cursoDto, nil
@@ -92,12 +97,10 @@ func (s *cursoService) GetCursosTotales() ([]dto.CursosDatadto, *e.RestErr) {
 	var cursosDto []dto.CursosDatadto
 	for _, curso := range cursos {
 		cursoDto := &dto.CursosDatadto{
-			ID:                curso.ID,
-			Nombre:            curso.Nombre,
-			Descripcion:       curso.Descripcion,
-			FechaCreacion:     curso.FechaCreacion,
-			FechaModificacion: curso.FechaModificacion,
-			Estado:            curso.Estado,
+			ID:          curso.ID,
+			Nombre:      curso.Nombre,
+			Descripcion: curso.Descripcion,
+			Estado:      curso.Estado,
 		}
 		cursosDto = append(cursosDto, *cursoDto)
 	}
@@ -107,14 +110,16 @@ func (s *cursoService) GetCursosTotales() ([]dto.CursosDatadto, *e.RestErr) {
 
 func (s *cursoService) PUTmodificarCurso(cursoV *dto.CursoClienteDataDto) (*dto.CursoClienteDataDto, *e.RestErr) {
 	cursoData := &users.CursosData{
+
 		ID:                cursoV.ID,
 		Nombre:            cursoV.Nombre,
 		Descripcion:       cursoV.Descripcion,
 		FechaModificacion: cursoV.FechaModificacion,
-		Estado:            cursoV.Estado,
+
+		Estado: cursoV.Estado,
 	}
 
-	_, CheckAdmin := s.IsAdmin(cursoV.User)
+	_, CheckAdmin := s.IsAdmin(cursoV)
 
 	if !CheckAdmin {
 		return nil, &e.RestErr{Message: "No es admin, no puede modificar curso", StatusCode: 400}
@@ -135,7 +140,7 @@ func (s *cursoService) EliminarCurso(cursoV *dto.CursoClienteDataDto) *e.RestErr
 		ID: cursoV.ID,
 	}
 
-	_, CheckAdmin := s.IsAdmin(cursoV.User)
+	_, CheckAdmin := s.IsAdmin(cursoV)
 
 	if !CheckAdmin {
 		return &e.RestErr{Message: "No es admin, no puede eliminar curso", StatusCode: 400}
@@ -148,4 +153,29 @@ func (s *cursoService) EliminarCurso(cursoV *dto.CursoClienteDataDto) *e.RestErr
 	}
 
 	return nil
+}
+
+func (s *cursoService) GetCursosPorNombre(nombre *dto.CursoBusqueda) ([]dto.CursosDatadto, *e.RestErr) {
+
+	nombreData := &users.CursosData{
+		Nombre: nombre.Nombre,
+	}
+
+	curso, err := cursoClient.GetCursosPorNombre(nombreData)
+	if err != nil {
+		return nil, &e.RestErr{Message: err.Error(), StatusCode: 500}
+	}
+
+	var cursoDto []dto.CursosDatadto
+
+	for _, curso := range curso {
+		cursoDto = append(cursoDto, dto.CursosDatadto{
+			ID:          curso.ID,
+			Nombre:      curso.Nombre,
+			Descripcion: curso.Descripcion,
+			Estado:      curso.Estado,
+		})
+	}
+	return cursoDto, nil
+
 }

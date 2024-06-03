@@ -1,9 +1,10 @@
 package users
 
-import "github.com/jinzhu/gorm"
-
 type ClientData struct {
-	gorm.Model
+	ID                uint   `gorm:"primary_key;auto_increment"`
+	FechaCreacion     string `gorm:"type:varchar(350) not null"`
+	FechaEliminacion  string `gorm:"type:varchar(350) not null"`
+	FechaModificacion string `gorm:"type:varchar(350) not null"`
 
 	FirstName string `gorm:"type:varchar(350) not null"`
 	LastName  string `gorm:"type:varchar(350) not null"`

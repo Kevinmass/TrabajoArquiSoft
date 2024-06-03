@@ -1,13 +1,9 @@
 package users
 
-import (
-	"time"
-)
-
 type InscriptosData struct {
-	ClienteID       uint      `gorm:"not null"`
-	CursoID         uint      `gorm:"not null"`
-	InscriptionDate time.Time `gorm:"not null"`
+	ID        uint `gorm:"primary_key;auto_increment"`
+	ClienteID uint `gorm:"not null"`
+	CursoID   uint `gorm:"not null"`
 }
 
 type Inscriptos []InscriptosData
