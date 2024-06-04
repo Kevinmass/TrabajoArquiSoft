@@ -44,14 +44,13 @@ func (s *cursoService) POSTcrearCurso(cursoV *dto.CursoClienteDataDto) (*dto.Cur
 
 	cursoData := &users.CursosData{
 
-		ID:                cursoV.ID,
-		Nombre:            cursoV.Nombre,
-		Descripcion:       cursoV.Descripcion,
-		FechaCreacion:     cursoV.FechaCreacion,
-		FechaEliminacion:  cursoV.FechaEliminacion,
-		FechaModificacion: cursoV.FechaModificacion,
-
-		Estado: cursoV.Estado,
+		ID:               cursoV.ID,
+		Nombre:           cursoV.Nombre,
+		Descripcion:      cursoV.Descripcion,
+		ProfesorNombre:   cursoV.NombreUsuario,
+		ProfesorApellido: cursoV.ApellidoUsuario,
+		ProfesorCorreo:   cursoV.CorreoUsuario,
+		FechaCreacion:    cursoV.FechaCreacion,
 	}
 
 	_, CheckAdmin := s.IsAdmin(cursoV)
@@ -78,10 +77,14 @@ func (s *cursoService) GetCursoPorID(id uint) (*dto.CursosDatadto, *e.RestErr) {
 	}
 
 	cursoDto := &dto.CursosDatadto{
-		ID:          curso.ID,
-		Nombre:      curso.Nombre,
-		Descripcion: curso.Descripcion,
-		Estado:      curso.Estado,
+		ID:                curso.ID,
+		Nombre:            curso.Nombre,
+		Descripcion:       curso.Descripcion,
+		ProfesorNombre:    curso.ProfesorNombre,
+		ProfesorApellido:  curso.ProfesorApellido,
+		ProfesorCorreo:    curso.ProfesorCorreo,
+		FechaCreacion:     curso.FechaCreacion,
+		FechaModificacion: curso.FechaModificacion,
 	}
 
 	return cursoDto, nil
@@ -97,10 +100,15 @@ func (s *cursoService) GetCursosTotales() ([]dto.CursosDatadto, *e.RestErr) {
 	var cursosDto []dto.CursosDatadto
 	for _, curso := range cursos {
 		cursoDto := &dto.CursosDatadto{
-			ID:          curso.ID,
-			Nombre:      curso.Nombre,
-			Descripcion: curso.Descripcion,
-			Estado:      curso.Estado,
+
+			ID:                curso.ID,
+			Nombre:            curso.Nombre,
+			Descripcion:       curso.Descripcion,
+			ProfesorNombre:    curso.ProfesorNombre,
+			ProfesorApellido:  curso.ProfesorApellido,
+			ProfesorCorreo:    curso.ProfesorCorreo,
+			FechaCreacion:     curso.FechaCreacion,
+			FechaModificacion: curso.FechaModificacion,
 		}
 		cursosDto = append(cursosDto, *cursoDto)
 	}
@@ -115,8 +123,6 @@ func (s *cursoService) PUTmodificarCurso(cursoV *dto.CursoClienteDataDto) (*dto.
 		Nombre:            cursoV.Nombre,
 		Descripcion:       cursoV.Descripcion,
 		FechaModificacion: cursoV.FechaModificacion,
-
-		Estado: cursoV.Estado,
 	}
 
 	_, CheckAdmin := s.IsAdmin(cursoV)
@@ -173,7 +179,6 @@ func (s *cursoService) GetCursosPorNombre(nombre *dto.CursoBusqueda) ([]dto.Curs
 			ID:          curso.ID,
 			Nombre:      curso.Nombre,
 			Descripcion: curso.Descripcion,
-			Estado:      curso.Estado,
 		})
 	}
 	return cursoDto, nil

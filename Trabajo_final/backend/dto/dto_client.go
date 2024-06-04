@@ -7,7 +7,7 @@ type ClientDatadto struct {
 	Email     string `json:"email"`
 	User      string `json:"user"`
 	Password  string `json:"password"`
-	Admin     bool   `json:"admin"`
+	Profesor  bool   `json:"profesor"`
 }
 
 type Clientesdto []ClientDatadto

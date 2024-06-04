@@ -1,7 +1,6 @@
 package dto
 
 type InscriptosDataDto struct {
-	ClienteID uint `json:"cliente_id"`
-	CursoID   uint `json:"curso_id"`
-	ID        int  `json:"id"`
+	ClienteID uint `json:"Client_id"`
+	CursoID   uint `json:"Curso_id"`
 }

@@ -35,13 +35,18 @@ func POSTinscripcion(clienteID, cursoID uint) e.RestErr {
 
 }
 
-func GetcursosdelCliente(clienteID uint) ([]users.CursosData, error) {
-	var cursos []users.CursosData
+func GetcursosdelCliente(clienteID uint) ([]users.CursosData, e.RestErr) {
+
+	// verificar si existe el cliente
 	cliente := users.ClientData{}
 	Db.First(&cliente, clienteID)
-	err := Db.Model(&cliente).Related(&cursos, "Cursos").Error
-	if err != nil {
-		return nil, err
+	if cliente.ID == 0 {
+		return nil, e.RestErr{Message: "Cliente no encontrado", StatusCode: 404}
 	}
-	return cursos, nil
+
+	// obtener los cursos del cliente
+	var cursos []users.CursosData
+	Db.Raw("SELECT * FROM cursos_data WHERE id IN (SELECT curso_id FROM inscriptos_data WHERE cliente_id = ?)", clienteID).Scan(&cursos)
+	return cursos, e.RestErr{Message: "Cursos obtenidos", StatusCode: 200}
+
 }

@@ -7,6 +7,7 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
+	log "github.com/sirupsen/logrus"
 )
 
 func POSTinscripcion(c *gin.Context) {
@@ -26,16 +27,26 @@ func POSTinscripcion(c *gin.Context) {
 }
 
 func GetcursosdelCliente(c *gin.Context) {
-	var (
-		clienteID *dto.InscriptosDataDto
-	)
-	clienteIDInt, _ := strconv.Atoi(c.Param("clienteID"))
-	clienteID = &dto.InscriptosDataDto{ID: clienteIDInt}
 
-	cursos, err := service.InscripcionService.GetcursosdelCliente(clienteID)
+	log.Debug("Cliente id to load: " + c.Param("id"))
+
+	// convertir el id a uint
+	clienteID, err := strconv.ParseUint(c.Param("id"), 10, 64)
 	if err != nil {
-		c.JSON(500, "Error al obtener los cursos")
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
+
+	relacion := &dto.InscriptosDataDto{
+		ClienteID: uint(clienteID),
+	}
+
+	cursos, RestErr := service.InscripcionService.GetcursosdelCliente(relacion)
+	if RestErr != nil {
+		c.JSON(RestErr.StatusCode, RestErr.Message)
+		return
+	}
+
 	c.JSON(http.StatusOK, cursos)
+
 }

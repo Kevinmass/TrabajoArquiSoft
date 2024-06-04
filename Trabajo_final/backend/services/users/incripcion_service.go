@@ -10,7 +10,7 @@ type inscripcionService struct{}
 
 type inscripcionServiceInterface interface {
 	POSTinscripcion(relacionU *dto.InscriptosDataDto) *utils.RestErr
-	GetcursosdelCliente(relacion *dto.InscriptosDataDto) ([]dto.CursosDatadto, error)
+	GetcursosdelCliente(relacion *dto.InscriptosDataDto) ([]dto.CursosDatadto, *utils.RestErr)
 }
 
 var (
@@ -32,24 +32,30 @@ func (s *inscripcionService) POSTinscripcion(relacionU *dto.InscriptosDataDto) *
 	return nil
 }
 
-func (s *inscripcionService) GetcursosdelCliente(relacion *dto.InscriptosDataDto) ([]dto.CursosDatadto, error) {
+func (s *inscripcionService) GetcursosdelCliente(relacion *dto.InscriptosDataDto) ([]dto.CursosDatadto, *utils.RestErr) {
 
 	cursos, err := inscripcionClient.GetcursosdelCliente(relacion.ClienteID)
-	if err != nil {
-		return nil, err
+
+	if err.StatusCode != 200 {
+		return nil, &utils.RestErr{Message: "Error al obtener los cursos", StatusCode: err.StatusCode}
 	}
 
-	var cursosDto []dto.CursosDatadto = make([]dto.CursosDatadto, len(cursos))
+	// Convert the type of cursos from []users.CursosData to []dto.CursosDatadto
+	var cursosDto []dto.CursosDatadto
 
-	for i, curso := range cursos {
-		cursosDto[i] = dto.CursosDatadto{
-			ID:          curso.ID,
-			Nombre:      curso.Nombre,
-			Descripcion: curso.Descripcion,
-			Estado:      curso.Estado,
+	for _, cursos := range cursos {
+		cursoDto := &dto.CursosDatadto{
+			ID:                cursos.ID,
+			Nombre:            cursos.Nombre,
+			Descripcion:       cursos.Descripcion,
+			ProfesorNombre:    cursos.ProfesorNombre,
+			ProfesorApellido:  cursos.ProfesorApellido,
+			ProfesorCorreo:    cursos.ProfesorCorreo,
+			FechaCreacion:     cursos.FechaCreacion,
+			FechaModificacion: cursos.FechaModificacion,
 		}
+		cursosDto = append(cursosDto, *cursoDto)
 	}
 
 	return cursosDto, nil
-
 }

@@ -102,7 +102,6 @@ func PUTmodificarCurso(curso *users.CursosData) error {
 	//modificar el curso, menos el id y la fecha de creacion
 	cursoDB.Nombre = curso.Nombre
 	cursoDB.Descripcion = curso.Descripcion
-	cursoDB.Estado = curso.Estado
 	cursoDB.FechaModificacion = curso.FechaModificacion
 
 	err = Db.Save(&cursoDB).Error
@@ -127,7 +126,7 @@ func IsAdmin(cliente *users.ClientData) bool {
 		return false
 	}
 
-	return clienteDB.Admin
+	return clienteDB.Profesor
 
 }
 

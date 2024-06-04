@@ -11,9 +11,8 @@ type clientService struct{}
 
 type clientServiceInterface interface {
 	POSTregistro(cliente *dto.ClientDatadto) (*dto.ClientDatadto, *e.RestErr)
-	PUThashearPassword(cliente *dto.ClientDatadto) (*dto.ClientDatadto, *e.RestErr)
-	GETverificarCliente(cliente *dto.ClientDatadto) (*dto.ClientDatadto, *e.RestErr)
-	GETloginCliente(cliente *dto.ClientDatadto) (*dto.ClientDatadto, *e.RestErr)
+	POSTlogin(cliente *dto.ClientDatadto) bool
+	GETvalidar(cliente *dto.ClientDatadto) (*dto.ClientDatadto, *e.RestErr)
 }
 
 var (
@@ -32,7 +31,7 @@ func (s *clientService) POSTregistro(cliente *dto.ClientDatadto) (*dto.ClientDat
 		Email:     cliente.Email,
 		User:      cliente.User,
 		Password:  cliente.Password,
-		Admin:     cliente.Admin,
+		Profesor:  cliente.Profesor,
 	}
 
 	err := clientClients.POSTregistro(client)
@@ -44,46 +43,28 @@ func (s *clientService) POSTregistro(cliente *dto.ClientDatadto) (*dto.ClientDat
 
 }
 
-func (s *clientService) PUThashearPassword(cliente *dto.ClientDatadto) (*dto.ClientDatadto, *e.RestErr) {
+func (s *clientService) POSTlogin(cliente *dto.ClientDatadto) bool {
 
 	client := &users.ClientData{
-		Password: cliente.Password,
-	}
-
-	err := clientClients.PUThashearPassword(client)
-	if err != nil {
-		return nil, &e.RestErr{Message: err.Error(), StatusCode: 500}
-	}
-
-	return cliente, nil
-
-}
-
-func (s *clientService) GETverificarCliente(cliente *dto.ClientDatadto) (*dto.ClientDatadto, *e.RestErr) {
-
-	client := &users.ClientData{
+		User:     cliente.User,
 		Email:    cliente.Email,
 		Password: cliente.Password,
 	}
 
-	err := clientClients.GETverificarCliente(client)
-	if err != nil {
-		return nil, &e.RestErr{Message: err.Error(), StatusCode: 500}
+	err := clientClients.POSTlogin(client)
+	if err == false {
+		return false
 	}
 
-	return cliente, nil
+	return true
 }
 
-func (s *clientService) GETloginCliente(cliente *dto.ClientDatadto) (*dto.ClientDatadto, *e.RestErr) {
+func (s *clientService) GETvalidar(cliente *dto.ClientDatadto) (*dto.ClientDatadto, *e.RestErr) {
 
-	client := &users.ClientData{
-		Email:    cliente.Email,
-		Password: cliente.Password,
+	if s.POSTlogin(cliente) == false {
+		return nil, &e.RestErr{Message: "Token invalido", StatusCode: 400}
 	}
 
-	clientClients.GETloginCliente(client)
-
-	//verificar si el mail y la contraseña coincide con lo que regresa la funcion GETloginCliente
-
 	return cliente, nil
+
 }

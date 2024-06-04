@@ -5,11 +5,9 @@ type CursoClienteDataDto struct {
 	ID                uint   `json:"id"`
 	Nombre            string `json:"nombre"`
 	Descripcion       string `json:"descripcion"`
-	ProfesorNombre    string `json:"profesor_nombre"`
-	ProfesorApellido  string `json:"profesor_apellido"`
-	ProfesorCorreo    string `json:"profesor_correo"`
+	NombreUsuario     string `json:"nombre_usuario"`
+	ApellidoUsuario   string `json:"apellido_usuario"`
+	CorreoUsuario     string `json:"correo_usuario"`
 	FechaCreacion     string `json:"fecha_creacion"`
-	FechaEliminacion  string `json:"fecha_eliminacion"`
 	FechaModificacion string `json:"fecha_actualizacion"`
-	Estado            bool   `json:"estado"`
 }
