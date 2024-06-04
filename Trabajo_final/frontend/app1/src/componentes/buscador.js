@@ -2,18 +2,20 @@ import { useState, useEffect } from "react"
 import "./estilos.css"
 export const Buscador = () => {
 
-  const [query, setQuery] = useState([])
-  const [cursos, setCursos] = useState('')
+  const [query, setQuery] = useState('')
+  const [cursos, setCursos] = useState([])
   const [buscar, setBuscar] = useState('')
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     setLoading(true);
-    fetch('http://localhost:8080/cursos/' + query)
+    fetch('http://localhost:8080/cursos/' + buscar)
       .then(response => response.json())
-      .then(data => setCursos(data))
+      .then(data => {
+        setCursos(data);
+        setLoading(false);
+      })
       .catch(error => console.error('error al buscar el curso solicitado', error))
-      .finally(() => setLoading(false))
   }, [buscar])
 
 
@@ -44,9 +46,22 @@ export const Buscador = () => {
         </div>
 
         <div className='muestraCursos'>
-          {console.log(cursos)}
+        {loading ? (
+            <p>Cargando...</p>
+          ) : (
+            cursos.map((curso) => (    // aca me tira un error rari
+              <div key={curso.id}>
+                <h2>{curso.nombre}</h2>
+                <p>Profesor: {curso.nombre_profesor} {curso.apellido_profesor}</p>
+                <p>Correo: {curso.correo}</p>
+                <p>Descripción: {curso.descripcion}</p>
+                <p>Fecha de Creación: {curso.fecha_creacion}</p>
+                <p>Fecha de Modificación: {curso.fecha_modificacion}</p>
+              </div>
+            ))
+          )}
         </div>
       </div>
     </div>
-  )
+  );
 }

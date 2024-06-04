@@ -7,12 +7,13 @@ export const Register = () => {
         apellido: '',
         email: '',
         user: '',
-        password: ''
+        password: '',
     })
 
 
     const handleChange = (e) => {
         setUsuario({
+            ...usuario,
             [e.target.name]: e.target.value,
         });
     };
@@ -53,8 +54,9 @@ export const Register = () => {
                             type="text"
                             name="nombre"
                             placeholder="Juan"
-                            value={usuario.nombre}
                             onChange={handleChange}
+                            value={usuario.nombre}
+                            required
                         />
                     </div>
                     <div className="cajas_inputs">
@@ -63,8 +65,10 @@ export const Register = () => {
                             type="text"
                             name="apellido"
                             placeholder="Muruzabal"
-                            value={usuario.apellido}
                             onChange={handleChange}
+                            value={usuario.apellido}
+                            required
+
                         />
                     </div>
                     <div className="cajas_inputs">
@@ -73,8 +77,10 @@ export const Register = () => {
                             type="email"
                             name="email"
                             placeholder="email@example.com"
-                            value={usuario.email}
                             onChange={handleChange}
+                            value={usuario.email}
+                            required
+
                         />
                     </div>
                     <div className="cajas_inputs">
@@ -83,8 +89,10 @@ export const Register = () => {
                             type="text"
                             name="user"
                             placeholder="usuario1234"
-                            value={usuario.user}
                             onChange={handleChange}
+                            value={usuario.user}
+                            required
+
                         />
                     </div>
                     <div className="cajas_inputs">
@@ -93,10 +101,13 @@ export const Register = () => {
                             type="password"
                             name="password"
                             placeholder="12345abcd"
-                            value={usuario.password}
                             onChange={handleChange}
+                            value={usuario.password}
+                            required
+
                         />
                     </div>
+
                     <button className="boton-sesion" type="submit" >Registrarse</button>
                 </form>
             </div >
