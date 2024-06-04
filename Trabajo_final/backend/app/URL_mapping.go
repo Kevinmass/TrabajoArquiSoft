@@ -10,7 +10,6 @@ func mapUrls() {
 
 	router.POST("/register", clientController.POSTregistro)
 	router.POST("/login", clientController.POSTlogin)
-	router.GET("/validate", clientController.GETvalidar)
 	router.GET("/isAdmin", cursosController.IsAdmin)
 	router.POST("/crearCurso", cursosController.POSTcrearCurso)
 	router.POST("/inscribirse", inscripcionController.POSTinscripcion)

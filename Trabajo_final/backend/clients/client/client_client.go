@@ -50,25 +50,25 @@ func POSTregistro(cliente *users.ClientData) error {
 
 // verficar si el cliente ya existe en la base de datos, y evitar que se cree un cliente con el mismo email y usuario
 
-func POSTlogin(cliente *users.ClientData) bool {
+func POSTlogin(cliente *users.ClientData) (string, error) {
 	var clienteDB users.ClientData
 	err := Db.Where("email = ?", cliente.Email).First(&clienteDB).Error
 	if err != nil {
 		log.Error("Error getting cliente: ", err)
-		return false
+		return "", err
 	}
 
 	err = Db.Where("user = ?", cliente.User).First(&clienteDB).Error
 	if err != nil {
 		log.Error("Error getting cliente: ", err)
-		return false
+		return "", err
 	}
 
 	// se compara la contraseña encriptada con la contraseña ingresada
 	err = bcrypt.CompareHashAndPassword([]byte(clienteDB.Password), []byte(cliente.Password))
 	if err != nil {
 		log.Error("Error comparing password: ", err)
-		return false
+		return "", err
 	}
 
 	// generar token
@@ -81,7 +81,7 @@ func POSTlogin(cliente *users.ClientData) bool {
 	tokenString, err := token.SignedString([]byte("asdhsghghsjgasgjgfd2737187ga"))
 	if err != nil {
 		log.Error("Error generating token string: ", err)
-		return false
+		return "", err
 	}
 
 	log.Debug("Token: ", tokenString)
@@ -96,7 +96,7 @@ func POSTlogin(cliente *users.ClientData) bool {
 
 	if err != nil {
 		log.Error("Error parsing token: ", err)
-		return false
+		return "", err
 	}
 
 	if token.Valid {
@@ -104,21 +104,12 @@ func POSTlogin(cliente *users.ClientData) bool {
 		err = Db.Where("user = ?", token.Claims.(jwt.MapClaims)["user"]).First(&clienteDB).Error
 		if err != nil {
 			log.Error("Error getting cliente: ", err)
-			return false
+			return "", err
 		}
-		return true
+		return tokenString, nil
 
 	} else {
-		return false
+		return "", err
 	}
 
-}
-
-func GETclientevalidado(cliente *users.ClientData) (*users.ClientData, error) {
-
-	if POSTlogin(cliente) == true {
-		return cliente, nil
-	} else {
-		return nil, nil
-	}
 }

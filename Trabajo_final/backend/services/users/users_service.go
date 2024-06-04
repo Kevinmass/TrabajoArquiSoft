@@ -11,8 +11,7 @@ type clientService struct{}
 
 type clientServiceInterface interface {
 	POSTregistro(cliente *dto.ClientDatadto) (*dto.ClientDatadto, *e.RestErr)
-	POSTlogin(cliente *dto.ClientDatadto) bool
-	GETvalidar(cliente *dto.ClientDatadto) (*dto.ClientDatadto, *e.RestErr)
+	POSTlogin(cliente *dto.ClientDatadto) (string, *e.RestErr)
 }
 
 var (
@@ -43,7 +42,7 @@ func (s *clientService) POSTregistro(cliente *dto.ClientDatadto) (*dto.ClientDat
 
 }
 
-func (s *clientService) POSTlogin(cliente *dto.ClientDatadto) bool {
+func (s *clientService) POSTlogin(cliente *dto.ClientDatadto) (string, *e.RestErr) {
 
 	client := &users.ClientData{
 		User:     cliente.User,
@@ -51,20 +50,11 @@ func (s *clientService) POSTlogin(cliente *dto.ClientDatadto) bool {
 		Password: cliente.Password,
 	}
 
-	err := clientClients.POSTlogin(client)
-	if err == false {
-		return false
+	tokenString, err := clientClients.POSTlogin(client)
+
+	if err != nil {
+		return "", &e.RestErr{Message: err.Error(), StatusCode: 500}
 	}
 
-	return true
-}
-
-func (s *clientService) GETvalidar(cliente *dto.ClientDatadto) (*dto.ClientDatadto, *e.RestErr) {
-
-	if s.POSTlogin(cliente) == false {
-		return nil, &e.RestErr{Message: "Token invalido", StatusCode: 400}
-	}
-
-	return cliente, nil
-
+	return tokenString, nil
 }
