@@ -1,32 +1,138 @@
 .encabezadoPrincipal {
-    background: lightblue;
-    color: black;
-    padding: 10px, 20px;
+    background-color: #333;
+    /* Negro */
+    color: #fff;
+    padding: 20px 10px;
+    /* Aumentamos el relleno vertical */
     display: flex;
-    align-items: center;
     justify-content: space-between;
-
-
+    align-items: center;
+    border-bottom: 2px solid #444;
+    /* Gris oscuro */
 }
 
-.titulo-encabezado {
-    font-size: 25px;
-    margin-left: 25px;
+.titulo-encabezado h1 {
+    margin: 0;
+    font-size: 32px;
+    /* Aumentamos el tamaño de la fuente */
 }
 
-.links-encabezado {
+.links-encabezado ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.links-encabezado ul li {
+    margin-left: 10px;
+}
+
+.links-encabezado ul li:first-child {
+    margin-left: 0;
+}
+
+.links-encabezado ul li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px;
+    /* Aumentamos el relleno de los enlaces */
+    border-radius: 5px;
+}
+
+.links-encabezado ul li a:hover {
+    background-color: #555;
+    /* Gris más oscuro */
+}
+
+
+.App {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.buscador {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buscador input[type="text"] {
+    width: 70%;
+    /* Ajusta el ancho del input de texto según sea necesario */
+    padding: 10px;
+    margin-right: 10px;
+    /* Espacio entre el input y el botón */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.buscador button {
     padding: 10px 20px;
-    margin-left: 15px;
+    background-color: #007bff;
+    color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-.botones {
-    margin-left: 10px;
+.buscador button:hover {
+    background-color: #0056b3;
+}
+
+
+
+.footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.cuerpo_footer {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer p {
+    margin: 0;
+}
+
+.links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.links li {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.links li:last-child {
+    margin-right: 0;
+}
+
+.links a {
+    color: #fff;
     text-decoration: none;
-    color: whitesmoke;
-    padding: 5px, 10px;
-    border: 1px solid whitesmoke;
-    border-radius: 5px;
+}
+
+.links a:hover {
+    text-decoration: underline;
+}
+
+.caja-buscador {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    /* Sombra para destacar la caja */
 }

@@ -17,32 +17,38 @@ export const Login = () => {
 
     const iniciarSesion = () => {
 
-}
+    }
 
 
     return (
-        <div>
-            <Header/>
-            <h1>Login</h1>
+        <div className="container">
+            <Header />
+            <div className="registro">
+                <h1>Login</h1>
 
-            <form className="formulario_login" onSubmit={handleSubmit}>
-                <h2>ingrese el usuario</h2>
-                <input
-                    type="text"
-                    placeholder="usuario"
-                    value={usuario}
-                    onChange={e => setUsuario(e.target.value)}
-                />
-                <h2>ingrese la contraseña</h2>
-                <input
-                    type="password"
-                    placeholder="contraseña"
-                    value={password}
-                    onChange={e => setPassword(e.target.value)}
-                />
+                <form className="formulario" onSubmit={handleSubmit}>
+                    <div className="cajas_inputs">
+                        <h2>Usuario</h2>
+                        <input
+                            type="text"
+                            placeholder="usuario"
+                            value={usuario}
+                            onChange={e => setUsuario(e.target.value)}
+                        />
+                    </div>
+                    <div className="cajas_inputs">
+                        <h2>Contraseña</h2>
+                        <input
+                            type="password"
+                            placeholder="contraseña"
+                            value={password}
+                            onChange={e => setPassword(e.target.value)}
+                        />
+                    </div>
 
-            <button className="boton-sesion" type="submit">Iniciar sesión</button>
-            </form>
+                    <button className="boton-sesion" type="submit">Iniciar sesión</button>
+                </form>
+            </div>
         </div>)
 
 }
