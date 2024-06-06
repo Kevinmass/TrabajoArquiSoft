@@ -2,9 +2,19 @@ import React, { useState } from "react"
 import { Header } from "../componentes/encabezado"
 
 export const Login = () => {
-    const [usuario, setUsuario] = useState('')
-    const [password, setPassword] = useState('')
+    const [usuario, setUsuario] = useState({
+        user: '',
+        email: '',
+        password: '',
+    })
 
+
+    const handleChange = (e) => {
+        setUsuario({
+            ...usuario,
+            [e.target.name]: e.target.value,
+        });
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -15,12 +25,12 @@ export const Login = () => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ usuario, password })
+                body: JSON.stringify( usuario )
             });
             if (!response.ok) {
                 throw new Error('error al iniciar sesión')
             }
-            const data =  response.json();
+            const data = await response.json();
             const token = data.token;
             localStorage.setItem('sesionCookie', data.token)
         } catch (error) {
@@ -31,38 +41,51 @@ export const Login = () => {
 
 
 
-        return (
-            <div className="container">
-                <Header />
-                <div className="registro">
-                    <h1>Login</h1>
+    return (
+        <div className="container">
+            <Header />
+            <div className="registro">
+                <h1>Login</h1>
 
-                    <form className="formulario" onSubmit={handleSubmit}>
-                        <div className="cajas_inputs">
-                            <h2>Usuario</h2>
-                            <input
-                                type="text"
-                                placeholder="usuario"
-                                value={usuario}
-                                onChange={e => setUsuario(e.target.value)
-                                }
-                                required
-                            />
-                        </div>
-                        <div className="cajas_inputs">
-                            <h2>Contraseña</h2>
-                            <input
-                                type="password"
-                                placeholder="contraseña"
-                                value={password}
-                                onChange={e => setPassword(e.target.value)}
-                                required
-                            />
-                        </div>
+                <form className="formulario" onSubmit={handleSubmit}>
+                    <div className="cajas_inputs">
+                        <h2>Usuario</h2>
+                        <input
+                            type="text"
+                            name="user"
+                            placeholder="usuario"
+                            onChange={handleChange}
+                            value={usuario.user}
+                            required
+                        />
+                    </div>
+                    <div className="cajas_inputs">
+                        <h2>Correo electrónico</h2>
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder="email@gmail.com"
+                            onChange={handleChange
+                            }
+                            value={usuario.email}
+                            required
+                        />
+                    </div>
+                    <div className="cajas_inputs">
+                        <h2>Contraseña</h2>
+                        <input
+                            type="password"
+                            name="password"
+                            placeholder="contraseña"
+                            onChange={handleChange}
+                            value={usuario.password}
+                            required
+                        />
+                    </div>
 
-                        <button className="boton-sesion" type="submit">Iniciar sesión</button>
-                    </form>
-                </div>
-            </div>)
+                    <button className="boton-sesion" type="submit">Iniciar sesión</button>
+                </form>
+            </div>
+        </div>)
 
-    }
+}
