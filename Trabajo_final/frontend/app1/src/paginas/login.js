@@ -33,6 +33,7 @@ export const Login = () => {
             const data = await response.json();
             const token = data.token;
             localStorage.setItem('sesionCookie', data.token)
+            alert('bienvenido ' + usuario.user)
         } catch (error) {
             alert('error: ' + error.message)
         }
