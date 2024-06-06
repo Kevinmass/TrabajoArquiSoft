@@ -52,11 +52,7 @@ func POSTregistro(cliente *users.ClientData) error {
 
 func POSTlogin(cliente *users.ClientData) (string, error) {
 	var clienteDB users.ClientData
-	err := Db.Where("email = ?", cliente.Email).First(&clienteDB).Error
-	if err != nil {
-		log.Error("Error getting cliente: ", err)
-		return "", err
-	}
+	var err error
 
 	err = Db.Where("user = ?", cliente.User).First(&clienteDB).Error
 	if err != nil {
