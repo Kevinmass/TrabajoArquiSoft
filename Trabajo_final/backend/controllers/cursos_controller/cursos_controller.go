@@ -8,8 +8,6 @@ import (
 
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
-
-	e "backend/utils"
 )
 
 func IsAdmin(c *gin.Context) {
@@ -46,11 +44,10 @@ func GetCursoPorID(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	var err1 *e.RestErr
 
-	curso, err1 := service.CursoService.GetCursoPorID(uint(id))
-	if err1.StatusCode != 0 {
-		c.JSON(err1.StatusCode, err1)
+	curso, RestErr := service.CursoService.GetCursoPorID(uint(id))
+	if RestErr != nil {
+		c.JSON(RestErr.StatusCode, RestErr.Message)
 		return
 	}
 

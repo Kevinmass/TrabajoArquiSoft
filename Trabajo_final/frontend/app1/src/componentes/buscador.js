@@ -21,7 +21,7 @@ export const Buscador = () => {
 
   const Buscar = () => {
       setLoading(true);
-      fetch('http://localhost:8080/cursos?' +buscar)
+      fetch('http://localhost:8080/cursos/' +buscar)
         .then(response => response.json())
         .then(data => {
           setCursos(data);
