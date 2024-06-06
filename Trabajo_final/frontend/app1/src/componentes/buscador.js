@@ -21,7 +21,7 @@ export const Buscador = () => {
 
   const Buscar = () => {
       setLoading(true);
-      fetch('http://localhost:8080/cursos/' +buscar)
+      fetch('http://localhost:8080/cursos/'+query)
         .then(response => response.json())
         .then(data => {
           setCursos(data);
@@ -47,17 +47,18 @@ export const Buscador = () => {
         {loading ? (
             <p>Cargando...</p>
           ) : (
-            cursos.map((curso) => (    // aca me tira un error rari
-              <div key={curso.id}>
-                <h2>{curso.nombre}</h2>
-                <p>Profesor: {curso.nombre_profesor} {curso.apellido_profesor}</p>
-                <p>Correo del profesor: {curso.correo}</p>
-                <p>Descripción: {curso.descripcion}</p>
-                <p>Fecha de Creación: {curso.fecha_creacion}</p>
-                <p>Fecha de Modificación: {curso.fecha_modificacion}</p>
+               // aca me tira un error rari
+              <div key={cursos.id}>
+                <h2>{cursos.nombre}</h2>
+                <p>Descripción: {cursos.descripcion}</p>
+                <p>Profesor: {cursos.rofesor_nombre} {cursos.profesor_apellido}</p>
+                <p>Correo del profesor: {cursos.profesor_correo}</p>
+              
+                <p>Fecha de Creación: {cursos.fecha_creacion}</p>
+                <p>Fecha de Modificación: {cursos.fecha_actualizacion}</p>
               </div>
-            ))
-          )}
+            )
+          }
         </div>
       </div>
     </div>
