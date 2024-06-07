@@ -7,8 +7,8 @@ export const PrimeraPag = () => {
    return  (
     <div>
         <Header/>
-        <li><Link to="/login" >Login</Link></li>
-        <li><Link to="/register" >Registrarse</Link></li>
+        <li><Link to="/login" >Iniciar sesion</Link></li>
+        <li><Link to="/register" >Quiero registrarme</Link></li>
         <Footer/>
     </div>
 

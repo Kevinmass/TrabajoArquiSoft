@@ -1,20 +1,16 @@
 .encabezadoPrincipal {
     background-color: #333;
-    /* Negro */
     color: #fff;
     padding: 20px 10px;
-    /* Aumentamos el relleno vertical */
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-bottom: 2px solid #444;
-    /* Gris oscuro */
 }
 
 .titulo-encabezado h1 {
     margin: 0;
     font-size: 32px;
-    /* Aumentamos el tamaño de la fuente */
 }
 
 .links-encabezado ul {
@@ -130,5 +126,13 @@
     background-color: #f5f5f5;
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-    /* Sombra para destacar la caja */
+}
+
+.muestraCursos {
+    background-color: #0056b3;
+    display: flex;
+}
+.cursoIndividual {
+    background-color: #444;
+    margin: 5px;
 }

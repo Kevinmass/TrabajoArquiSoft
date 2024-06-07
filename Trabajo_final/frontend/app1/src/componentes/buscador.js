@@ -70,13 +70,13 @@ export const Buscador = () => {
           />
           <button onClick={Buscar}>Buscar</button>
         </div>
-
+</div>
         <div className="muestraCursos">
           {resultados ? (
             <p>no se obtuvieron resultados para su busqueda</p>
           ) : (
             cursos.map((curso) => (
-              <div key={curso.id}>
+              <div classname = "cursoIndividual" key={curso.id}>
                 <h2>{curso.nombre}</h2>
                 <p>Descripción: {curso.descripcion}</p>
                 <p>Profesor: {curso.profesor_nombre} {curso.profesor_apellido}</p>
@@ -98,6 +98,6 @@ export const Buscador = () => {
           )}
         </div>
       </div>
-    </div>
+ 
   );
 }
