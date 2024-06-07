@@ -1,5 +1,6 @@
 import { useState, useEffect, Component } from "react"
 import "./estilos.css"
+import { Link } from "react-router-dom"
 export const Buscador = () => {
 
   const [query, setQuery] = useState("")
@@ -46,6 +47,7 @@ export const Buscador = () => {
   const cargarDatos = (e) => {
     setQuery(e.target.value)
   }
+
 
 
   const Buscar = () => {
