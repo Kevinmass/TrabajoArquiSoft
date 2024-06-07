@@ -11,6 +11,7 @@ type inscripcionService struct{}
 type inscripcionServiceInterface interface {
 	POSTinscripcion(relacionU *dto.InscriptosDataDto) *utils.RestErr
 	GetcursosdelCliente(relacion *dto.InscriptosDataDto) ([]dto.CursosDatadto, *utils.RestErr)
+	GetUserID(user string) uint
 }
 
 var (
@@ -21,9 +22,18 @@ func init() {
 	InscripcionService = &inscripcionService{}
 }
 
+func (s *inscripcionService) GetUserID(user string) uint {
+
+	ClienteID := inscripcionClient.GetUserID(user)
+
+	return ClienteID
+}
+
 func (s *inscripcionService) POSTinscripcion(relacionU *dto.InscriptosDataDto) *utils.RestErr {
 
-	err := inscripcionClient.POSTinscripcion(relacionU.ClienteID, relacionU.CursoID)
+	ClienteID := s.GetUserID(relacionU.User)
+
+	err := inscripcionClient.POSTinscripcion(ClienteID, relacionU.CursoID)
 
 	if err.StatusCode != 200 {
 		return &utils.RestErr{Message: "Error al inscribirse", StatusCode: err.StatusCode}
@@ -34,7 +44,9 @@ func (s *inscripcionService) POSTinscripcion(relacionU *dto.InscriptosDataDto) *
 
 func (s *inscripcionService) GetcursosdelCliente(relacion *dto.InscriptosDataDto) ([]dto.CursosDatadto, *utils.RestErr) {
 
-	cursos, err := inscripcionClient.GetcursosdelCliente(relacion.ClienteID)
+	ClienteID := s.GetUserID(relacion.User)
+
+	cursos, err := inscripcionClient.GetcursosdelCliente(ClienteID)
 
 	if err.StatusCode != 200 {
 		return nil, &utils.RestErr{Message: "Error al obtener los cursos", StatusCode: err.StatusCode}

@@ -16,9 +16,9 @@ func POSTregistro(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	cliente, err := service.ClientService.POSTregistro(cliente)
-	if err != nil {
-		c.JSON(err.StatusCode, err)
+	cliente, RestErr := service.ClientService.POSTregistro(cliente)
+	if RestErr != nil {
+		c.JSON(RestErr.StatusCode, RestErr.Message)
 		return
 	}
 

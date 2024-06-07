@@ -118,17 +118,12 @@ func EliminarCurso(c *gin.Context) {
 
 func GetCursosPorNombre(c *gin.Context) {
 
-	var (
-		nombre *dto.CursoBusqueda
-	)
-	if err := c.ShouldBindJSON(&nombre); err != nil {
-		log.Error("Error binding json: ", err)
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-	cursos, err := service.CursoService.GetCursosPorNombre(nombre)
-	if err != nil {
-		c.JSON(err.StatusCode, err)
+	nombre := c.Param("nombre")
+
+	cursos, RestErr := service.CursoService.GetCursosPorNombre(nombre)
+
+	if RestErr != nil {
+		c.JSON(RestErr.StatusCode, RestErr.Message)
 		return
 	}
 	c.JSON(http.StatusOK, cursos)

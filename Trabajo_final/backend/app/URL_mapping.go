@@ -17,6 +17,6 @@ func mapUrls() {
 	router.GET("/cursos/:id", cursosController.GetCursoPorID)
 	router.POST("/eliminarCurso", cursosController.EliminarCurso)
 	router.PUT("/modificarCurso", cursosController.PUTmodificarCurso)
-	router.GET("/cursosPorNombre", cursosController.GetCursosPorNombre)
-	router.GET("/GetCursosdelCliente/:id", inscripcionController.GetcursosdelCliente)
+	router.GET("/cursosPorNombre/:nombre", cursosController.GetCursosPorNombre)
+	router.GET("/GetCursosdelCliente/:user", inscripcionController.GetcursosdelCliente)
 }
