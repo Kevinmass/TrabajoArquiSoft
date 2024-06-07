@@ -34,6 +34,7 @@ export const Login = () => {
             const token = data.token;
             localStorage.setItem('sesionCookie', data.token)
             alert('bienvenido ' + usuario.user)
+            window.location.pathname = '/'
         } catch (error) {
             alert('error: ' + error.message);
             setUsuario({

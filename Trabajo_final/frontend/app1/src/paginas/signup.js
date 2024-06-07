@@ -32,7 +32,8 @@ export const Register = () => {
             if (!response.ok) {
                 throw new Error('error al crear el usuario')
             }
-            alert('Usuario creado correctamente')
+            alert('Usuario creado correctamente');
+            window.location.pathname = '/'
         } catch (error) {
             console.error('Error: ', error.message);
             alert('ocurrio un error al crear el usuario');
