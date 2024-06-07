@@ -132,8 +132,8 @@ func IsAdmin(cliente *users.ClientData) bool {
 
 //Buscar los nombres de todos los cursos que posean alguna similitud con la palabra ingresada
 
-func GetCursosPorNombre(nombreDatabase *users.CursosData) ([]users.CursosData, error) {
-	nombre := nombreDatabase.Nombre
+func GetCursosPorNombre(nombreDatabase string) ([]users.CursosData, error) {
+	nombre := nombreDatabase
 	var cursos []users.CursosData
 	err := Db.Where("nombre LIKE ?", "%"+nombre+"%").Find(&cursos).Error
 	if err != nil {

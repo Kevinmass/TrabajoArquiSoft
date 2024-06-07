@@ -4,7 +4,6 @@ import (
 	"backend/dto"
 	service "backend/services/users"
 	"net/http"
-	"strconv"
 
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
@@ -28,17 +27,12 @@ func POSTinscripcion(c *gin.Context) {
 
 func GetcursosdelCliente(c *gin.Context) {
 
-	log.Debug("Cliente id to load: " + c.Param("id"))
+	log.Debug("Cliente user to load: " + c.Param("user"))
 
-	// convertir el id a uint
-	clienteID, err := strconv.ParseUint(c.Param("id"), 10, 64)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
+	user := c.Param("user")
 
 	relacion := &dto.InscriptosDataDto{
-		ClienteID: uint(clienteID),
+		User: user,
 	}
 
 	cursos, RestErr := service.InscripcionService.GetcursosdelCliente(relacion)

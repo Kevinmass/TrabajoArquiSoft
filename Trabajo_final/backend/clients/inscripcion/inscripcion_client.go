@@ -50,3 +50,12 @@ func GetcursosdelCliente(clienteID uint) ([]users.CursosData, e.RestErr) {
 	return cursos, e.RestErr{Message: "Cursos obtenidos", StatusCode: 200}
 
 }
+
+func GetUserID(user string) uint {
+
+	// obtener el id del usuario
+	var cliente users.ClientData
+	Db.Where("user = ?", user).First(&cliente)
+	return cliente.ID
+
+}
