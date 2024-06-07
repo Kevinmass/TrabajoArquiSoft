@@ -32,6 +32,7 @@ export const Register = () => {
             if (!response.ok) {
                 throw new Error('error al crear el usuario')
             }
+            localStorage.setItem('user', usuario.user)
             alert('Usuario creado correctamente');
             window.location.pathname = '/'
         } catch (error) {

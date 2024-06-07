@@ -25,7 +25,6 @@ export const Buscador = () => {
 
 
   const inscribirCurso = async () => {
-
     try {
       const response = await fetch('http://localhost:8080/inscribirse', {
         method: 'POST',
@@ -38,6 +37,7 @@ export const Buscador = () => {
         throw new Error('error al inscribirse')
       }
       const data = await response.json();
+      alert('inscripción realizada correctamente!')
     }
     catch {
       alert('error al inscribirse')
@@ -84,10 +84,12 @@ export const Buscador = () => {
                 <p>Fecha de Creación: {curso.fecha_creacion}</p>
                 <p>Fecha de Modificación: {curso.fecha_actualizacion}</p>
                 <button onClick={() => {
+                  
                   setInscripcion({
-                    User: localStorage.getItem('user'),
-                    Curso_id: curso.id
+                    User : localStorage.getItem('user'),
+                    Curso_id : curso.id
                   });
+                  
                   inscribirCurso();
                 }}>Inscribirse al curso</button>
               </div>
