@@ -35,7 +35,12 @@ export const Login = () => {
             localStorage.setItem('sesionCookie', data.token)
             alert('bienvenido ' + usuario.user)
         } catch (error) {
-            alert('error: ' + error.message)
+            alert('error: ' + error.message);
+            setUsuario({
+                user: '',
+                email: '',
+                password: '',
+            });
         }
     }
 

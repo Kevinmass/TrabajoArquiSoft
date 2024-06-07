@@ -36,6 +36,13 @@ export const Register = () => {
         } catch (error) {
             console.error('Error: ', error.message);
             alert('ocurrio un error al crear el usuario');
+            setUsuario({
+                nombre: '',
+                apellido: '',
+                email: '',
+                user: '',
+                password: '',
+            });
         }
     };
 
