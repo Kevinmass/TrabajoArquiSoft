@@ -1,31 +1,36 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, Component } from "react"
 import "./estilos.css"
 export const Buscador = () => {
 
   const [query, setQuery] = useState("")
   const [cursos, setCursos] = useState([])
-  const [buscar, setBuscar] = useState("")
-  const [loading, setLoading] = useState(true)
-
+const [resultados,setResultados] = useState(false)
   
+  useEffect(()=> {
+    const mostrarCursos= () =>{
 
-
-
+  fetch('http://localhost:8080/cursos')
+  .then(response => response.json())
+  .then(data => {
+    setCursos(data);
+  })
+  .catch(error => console.error('error al cargar los cursos', error))
+}
+mostrarCursos();
+},[] )
+  
 
   const cargarDatos = (e) => {
     setQuery(e.target.value)
-    console.log('estas buscando: ' + query)
-
   }
 
 
   const Buscar = () => {
-      setLoading(true);
       fetch('http://localhost:8080/cursos/'+query)
         .then(response => response.json())
         .then(data => {
-          setCursos(data);
-          setLoading(false);
+          setCursos(Array.isArray(data)?data : [data]);  //con esta linea aseguramos que el curso esté dentro de un array y no tire el error de cursos.map is not a function
+          setResultados(data.length===0);
         })
         .catch(error => console.error('error al buscar el curso solicitado', error))
     }
@@ -43,22 +48,22 @@ export const Buscador = () => {
           <button onClick={Buscar}>Buscar</button>
         </div>
 
-        <div className='muestraCursos'>
-        {loading ? (
-            <p>Cargando...</p>
+        <div className="muestraCursos">
+          {resultados ? (
+            <p>no se obtuvieron resultados para su busqueda</p>
           ) : (
-               // aca me tira un error rari
-              <div key={cursos.id}>
-                <h2>{cursos.nombre}</h2>
-                <p>Descripción: {cursos.descripcion}</p>
-                <p>Profesor: {cursos.rofesor_nombre} {cursos.profesor_apellido}</p>
-                <p>Correo del profesor: {cursos.profesor_correo}</p>
-              
-                <p>Fecha de Creación: {cursos.fecha_creacion}</p>
-                <p>Fecha de Modificación: {cursos.fecha_actualizacion}</p>
-              </div>
+              cursos.map((curso) => (
+                <div key={curso.id}>
+                  <h2>{curso.nombre}</h2>
+                  <p>Descripción: {curso.descripcion}</p>
+                  <p>Profesor: {curso.profesor_nombre} {curso.profesor_apellido}</p>
+                  <p>Correo del profesor: {curso.profesor_correo}</p>
+                  <p>Fecha de Creación: {curso.fecha_creacion}</p>
+                  <p>Fecha de Modificación: {curso.fecha_actualizacion}</p>
+                </div>
+              )
             )
-          }
+          )}
         </div>
       </div>
     </div>
