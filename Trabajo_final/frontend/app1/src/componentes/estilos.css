@@ -36,13 +36,11 @@
     color: #fff;
     text-decoration: none;
     padding: 10px;
-    /* Aumentamos el relleno de los enlaces */
     border-radius: 5px;
 }
 
 .links-encabezado ul li a:hover {
     background-color: #555;
-    /* Gris más oscuro */
 }
 
 
@@ -60,10 +58,8 @@
 
 .buscador input[type="text"] {
     width: 70%;
-    /* Ajusta el ancho del input de texto según sea necesario */
     padding: 10px;
     margin-right: 10px;
-    /* Espacio entre el input y el botón */
     border: 1px solid #ccc;
     border-radius: 5px;
 }

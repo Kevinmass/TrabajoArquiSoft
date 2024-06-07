@@ -36,7 +36,7 @@ export const Login = () => {
             localStorage.setItem('user', usuario.user)
 
             alert('bienvenido ' + usuario.user)
-            window.location.pathname = '/'
+            window.location.pathname = '/home'
         } catch (error) {
             alert('error: ' + error.message);
             setUsuario({

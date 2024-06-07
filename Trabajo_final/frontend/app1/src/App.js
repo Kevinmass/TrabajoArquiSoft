@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Route, Switch, Routes } from 'react-router-dom
 import { Login } from './paginas/login.js'
 import { Register } from './paginas/signup.js';
 import { Home } from './paginas/home.js';
-
+import { PrimeraPag } from './paginas/primerapag.js'
 function App() {
   return (
     <div>
@@ -15,8 +15,8 @@ function App() {
       <div>
         <Router>
           <Routes>
-
-            <Route path="/" Component={Home} />
+            <Route path="/" Component={PrimeraPag} />
+            <Route path="/home" Component={Home} />
             <Route path="/login" Component={Login} />
             <Route path="/register" Component={Register} />
 
