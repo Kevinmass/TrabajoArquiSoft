@@ -1,5 +1,7 @@
 import React, { useState } from "react"
 import { Header } from "../componentes/encabezado"
+import { Footer } from "../componentes/footer";
+
 
 export const Login = () => {
     const [usuario, setUsuario] = useState({
@@ -95,6 +97,7 @@ export const Login = () => {
                     <button className="boton-sesion" type="submit">Iniciar sesión</button>
                 </form>
             </div>
+            <Footer/>
         </div>)
 
 }

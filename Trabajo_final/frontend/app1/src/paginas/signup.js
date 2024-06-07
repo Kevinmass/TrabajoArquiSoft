@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import { Header } from "../componentes/encabezado"
 import '../paginas/estilo_paginas.css'
+import { Footer } from "../componentes/footer"
 export const Register = () => {
     const [usuario, setUsuario] = useState({
         nombre: '',
@@ -138,5 +139,7 @@ export const Register = () => {
                     <button className="boton-sesion" type="submit" >Registrarse</button>
                 </form>
             </div >
+            <Footer/>
+
         </div >)
 }
