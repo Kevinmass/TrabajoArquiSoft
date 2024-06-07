@@ -23,7 +23,6 @@ func init() {
 }
 
 func (s *clientService) POSTregistro(cliente *dto.ClientDatadto) (*dto.ClientDatadto, *e.RestErr) {
-
 	client := &users.ClientData{
 		FirstName: cliente.FirstName,
 		LastName:  cliente.LastName,
@@ -34,8 +33,8 @@ func (s *clientService) POSTregistro(cliente *dto.ClientDatadto) (*dto.ClientDat
 	}
 
 	err := clientClients.POSTregistro(client)
-	if err != nil {
-		return nil, &e.RestErr{Message: err.Error(), StatusCode: 500}
+	if !err {
+		return nil, &e.RestErr{StatusCode: 500}
 	}
 
 	return cliente, nil

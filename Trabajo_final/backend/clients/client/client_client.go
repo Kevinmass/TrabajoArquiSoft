@@ -13,27 +13,27 @@ var (
 	Db *gorm.DB
 )
 
-func POSTregistro(cliente *users.ClientData) error {
+func POSTregistro(cliente *users.ClientData) bool {
 
 	//se verifica si el cliente ya existe en la base de datos
 	var clienteDB users.ClientData
 	err := Db.Where("email = ?", cliente.Email).First(&clienteDB).Error
 	if err == nil {
 		log.Error("Cliente already exists")
-		return err
+		return false
 	}
 
 	err = Db.Where("user = ?", cliente.User).First(&clienteDB).Error
 	if err == nil {
 		log.Error("Cliente already exists")
-		return err
+		return false
 	}
 
 	//se encripta la contraseña
 	hash, err := bcrypt.GenerateFromPassword([]byte(cliente.Password), bcrypt.DefaultCost)
 	if err != nil {
 		log.Error("Error hashing password: ", err)
-		return err
+		return false
 	}
 	cliente.Password = string(hash)
 
@@ -41,10 +41,10 @@ func POSTregistro(cliente *users.ClientData) error {
 	err = Db.Create(&cliente).Error
 	if err != nil {
 		log.Error("Error creating cliente: ", err)
-		return err
+		return false
 	}
 
-	return nil
+	return true
 
 }
 
