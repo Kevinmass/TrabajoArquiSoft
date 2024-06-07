@@ -33,6 +33,8 @@ export const Login = () => {
             const data = await response.json();
             const token = data.token;
             localStorage.setItem('sesionCookie', data.token)
+            localStorage.setItem('user', usuario.user)
+
             alert('bienvenido ' + usuario.user)
             window.location.pathname = '/'
         } catch (error) {
