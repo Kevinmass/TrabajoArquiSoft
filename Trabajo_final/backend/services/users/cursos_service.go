@@ -172,9 +172,14 @@ func (s *cursoService) GetCursosPorNombre(nombre string) ([]dto.CursosDatadto, *
 
 	for _, curso := range curso {
 		cursoDto = append(cursoDto, dto.CursosDatadto{
-			ID:          curso.ID,
-			Nombre:      curso.Nombre,
-			Descripcion: curso.Descripcion,
+			ID:                curso.ID,
+			Nombre:            curso.Nombre,
+			Descripcion:       curso.Descripcion,
+			ProfesorNombre:    curso.ProfesorNombre,
+			ProfesorApellido:  curso.ProfesorApellido,
+			ProfesorCorreo:    curso.ProfesorCorreo,
+			FechaCreacion:     curso.FechaCreacion,
+			FechaModificacion: curso.FechaModificacion,
 		})
 	}
 	return cursoDto, nil
