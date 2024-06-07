@@ -49,7 +49,7 @@ export const Buscador = () => {
 
 
   const Buscar = () => {
-    fetch('http://localhost:8080/cursos/' + query)
+    fetch('http://localhost:8080/cursosPorNombre/' + query)
       .then(response => response.json())
       .then(data => {
         setCursos(Array.isArray(data) ? data : [data]);  //con esta linea aseguramos que el curso esté dentro de un array y no tire el error de cursos.map is not a function
@@ -65,7 +65,7 @@ export const Buscador = () => {
         <div className='buscador'>
           <input
             type='text'
-            placeholder='Introducir el id del curso deseado...'
+            placeholder='Qué curso estás buscando?'
             onChange={cargarDatos}
           />
           <button onClick={Buscar}>Buscar</button>

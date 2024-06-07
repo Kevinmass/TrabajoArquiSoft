@@ -8,18 +8,23 @@ export const Register = () => {
         email: '',
         user: '',
         password: '',
+        profesor: false
     })
 
 
     const handleChange = (e) => {
+        const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
         setUsuario({
             ...usuario,
-            [e.target.name]: e.target.value,
+            [e.target.name]: value,
         });
     };
+    
 
 
     const handleSubmit = async (e) => {
+
+    
         e.preventDefault();
         try {
             const response = await fetch('http://localhost:8080/register', {
@@ -44,6 +49,7 @@ export const Register = () => {
                 email: '',
                 user: '',
                 password: '',
+                profesor: false
             });
         }
     };
@@ -115,6 +121,18 @@ export const Register = () => {
                             required
 
                         />
+                    </div>
+
+                    <div className="cajas_inputs">
+                        <h2>Es profesor?</h2>
+                        <label><input
+                            type="checkbox"
+                            name="profesor"
+                            checked={usuario.profesor}
+                            onChange={handleChange}                        
+                        />
+                            Si
+                        </label>
                     </div>
 
                     <button className="boton-sesion" type="submit" >Registrarse</button>
