@@ -187,6 +187,8 @@ func (s *cursoService) GetCursosPorNombre(nombre string) ([]dto.CursosDatadto, *
 	if len(cursoDto) == 0 {
 		cursoDto = []dto.CursosDatadto{}
 
+		return cursoDto, &e.RestErr{Message: "No se encontro el curso", StatusCode: 404}
+
 	}
 
 	return cursoDto, nil
