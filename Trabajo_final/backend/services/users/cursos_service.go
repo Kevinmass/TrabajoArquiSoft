@@ -182,6 +182,13 @@ func (s *cursoService) GetCursosPorNombre(nombre string) ([]dto.CursosDatadto, *
 			FechaModificacion: curso.FechaModificacion,
 		})
 	}
+
+	// si no se encuentra el curso con la palabra, envia una lista vacia
+	if len(cursoDto) == 0 {
+		cursoDto = []dto.CursosDatadto{}
+
+	}
+
 	return cursoDto, nil
 
 }
