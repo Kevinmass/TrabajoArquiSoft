@@ -168,6 +168,9 @@ func (s *cursoService) GetCursosPorNombre(nombre string) ([]dto.CursosDatadto, *
 		return nil, &e.RestErr{Message: err.Error(), StatusCode: 500}
 	}
 
+	var err2 *e.RestErr
+	err2 = nil
+
 	var cursoDto []dto.CursosDatadto
 
 	for _, curso := range curso {
@@ -185,12 +188,11 @@ func (s *cursoService) GetCursosPorNombre(nombre string) ([]dto.CursosDatadto, *
 
 	// si no se encuentra el curso con la palabra, envia una lista vacia
 	if len(cursoDto) == 0 {
+		err2 = &e.RestErr{StatusCode: 404}
 		cursoDto = []dto.CursosDatadto{}
-
-		return cursoDto, &e.RestErr{Message: "No se encontro el curso", StatusCode: 404}
 
 	}
 
-	return cursoDto, nil
+	return cursoDto, err2
 
 }
