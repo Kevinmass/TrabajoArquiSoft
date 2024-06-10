@@ -3,14 +3,14 @@ package services
 import (
 	inscripcionClient "backend/clients/inscripcion"
 	"backend/dto"
-	"backend/utils"
+	e "backend/utils"
 )
 
 type inscripcionService struct{}
 
 type inscripcionServiceInterface interface {
-	POSTinscripcion(relacionU *dto.InscriptosDataDto) *utils.RestErr
-	GetcursosdelCliente(relacion *dto.InscriptosDataDto) ([]dto.CursosDatadto, *utils.RestErr)
+	POSTinscripcion(relacionU *dto.InscriptosDataDto) *e.RestErr
+	GetcursosdelCliente(relacion *dto.InscriptosDataDto) ([]dto.CursosDatadto, *e.RestErr)
 	GetUserID(user string) uint
 }
 
@@ -29,31 +29,32 @@ func (s *inscripcionService) GetUserID(user string) uint {
 	return ClienteID
 }
 
-func (s *inscripcionService) POSTinscripcion(relacionU *dto.InscriptosDataDto) *utils.RestErr {
+func (s *inscripcionService) POSTinscripcion(relacionU *dto.InscriptosDataDto) *e.RestErr {
 
 	ClienteID := s.GetUserID(relacionU.User)
 
 	err := inscripcionClient.POSTinscripcion(ClienteID, relacionU.CursoID)
 
 	if err.StatusCode != 200 {
-		return &utils.RestErr{Message: "Error al inscribirse", StatusCode: err.StatusCode}
+		return &e.RestErr{Message: "Error al inscribirse", StatusCode: err.StatusCode}
 	}
 
 	return nil
 }
 
-func (s *inscripcionService) GetcursosdelCliente(relacion *dto.InscriptosDataDto) ([]dto.CursosDatadto, *utils.RestErr) {
+func (s *inscripcionService) GetcursosdelCliente(relacion *dto.InscriptosDataDto) ([]dto.CursosDatadto, *e.RestErr) {
 
 	ClienteID := s.GetUserID(relacion.User)
 
 	cursos, err := inscripcionClient.GetcursosdelCliente(ClienteID)
 
 	if err.StatusCode != 200 {
-		return nil, &utils.RestErr{Message: "Error al obtener los cursos", StatusCode: err.StatusCode}
+		return nil, &e.RestErr{Message: "Error al obtener los cursos", StatusCode: err.StatusCode}
 	}
 
-	// Convert the type of cursos from []users.CursosData to []dto.CursosDatadto
 	var cursosDto []dto.CursosDatadto
+	var err2 *e.RestErr
+	err2 = nil
 
 	for _, cursos := range cursos {
 		cursoDto := &dto.CursosDatadto{
@@ -69,5 +70,10 @@ func (s *inscripcionService) GetcursosdelCliente(relacion *dto.InscriptosDataDto
 		cursosDto = append(cursosDto, *cursoDto)
 	}
 
-	return cursosDto, nil
+	if len(cursosDto) == 0 {
+		err2 = &e.RestErr{StatusCode: 404}
+		cursosDto = []dto.CursosDatadto{}
+	}
+
+	return cursosDto, err2
 }
