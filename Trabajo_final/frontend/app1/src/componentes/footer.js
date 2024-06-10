@@ -6,8 +6,9 @@ export const Footer = () => {
     <div className="cuerpo_footer">
 <p>Página creada por Barrale, Martinez, Massholder y Muruzabal para la UCC</p>
 <ul className="links">
-    <li><a href="/">Inicio</a></li> 
-    <li><a href="https://www.ucc.edu.ar/">Sobre la facultad</a></li>
+    <a href="/">Inicio</a> 
+    <br></br>
+    <a href="https://www.ucc.edu.ar/">Sobre la facultad</a>
 
 </ul>
     </div>

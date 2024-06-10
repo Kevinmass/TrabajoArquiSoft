@@ -9,13 +9,13 @@ export const PrimeraPag = () => {
     <div>
         <Header/>
         <div className="container-horizontal">
-        <div className="izquierda">
+        <div className="containers">
         <h5>Ya tiene una cuenta creada ? </h5>
         <button><Link to="/login" >Iniciar sesion con tu cuenta</Link></button>
     </div>
     <br>
     </br>
-    <div class="derecha">
+    <div class="containers">
         <h5>Acaso no tienes cuenta?</h5>
         
         <button><Link to="/register" >Registrate aqui</Link></button>
