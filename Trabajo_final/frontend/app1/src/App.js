@@ -5,7 +5,8 @@ import { Login } from './paginas/login.js'
 import { Register } from './paginas/signup.js';
 import { Home } from './paginas/home.js';
 import { PrimeraPag } from './paginas/primerapag.js'
-import {Detalle} from './paginas/cursodetalle.js'
+import { Detalle } from './paginas/cursodetalle.js'
+import { MisCursos } from './componentes/miscursos.js';
 function App() {
   return (
     <div>
@@ -17,7 +18,9 @@ function App() {
             <Route path="/home" Component={Home} />
             <Route path="/login" Component={Login} />
             <Route path="/register" Component={Register} />
-            <Route path='/cursodetalle' Component={Detalle}/>
+            <Route path='/cursodetalle' Component={Detalle} />
+            <Route path="/miscursos" Component={MisCursos} />
+
 
           </Routes>
         </Router>
