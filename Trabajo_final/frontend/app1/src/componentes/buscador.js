@@ -6,10 +6,7 @@ export const Buscador = () => {
   const [query, setQuery] = useState("")
   const [cursos, setCursos] = useState([])
   const [resultados, setResultados] = useState(false)
-  const [inscripcion, setInscripcion] = useState({
-    User: '',
-    Curso_id: ''
-  })
+
 
   useEffect(() => {
     const mostrarCursos = () => {
@@ -25,14 +22,14 @@ export const Buscador = () => {
   }, [])
 
 
-  const inscribirCurso = async () => {
+  const inscribirCurso = async (datos) => {
     try {
       const response = await fetch('http://localhost:8080/inscribirse', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(inscripcion)
+        body: JSON.stringify(datos)
       });
       if (!response.ok) {
         throw new Error('error al inscribirse')
@@ -71,36 +68,35 @@ export const Buscador = () => {
             onChange={cargarDatos}
           />
           <button onClick={Buscar}>Buscar</button>
-          <button><Link to="/miscursos" >Mis cursos</Link></button>
-        </div>
-</div>
-        <div className="muestraCursos">
-          {resultados ? (
-            <p>no se obtuvieron resultados para su busqueda</p>
-          ) : (
-            cursos.map((curso) => (
-              <div classname = "cursoIndividual" key={curso.id}>
-                <h2>{curso.nombre}</h2>
-                <p>Descripción: {curso.descripcion}</p>
-                <p>Profesor: {curso.profesor_nombre} {curso.profesor_apellido}</p>
-                <p>Correo del profesor: {curso.profesor_correo}</p>
-                <p>Fecha de Creación: {curso.fecha_creacion}</p>
-                <p>Fecha de Modificación: {curso.fecha_actualizacion}</p>
-                <button onClick={() => {
-                  
-                  setInscripcion({
-                    User : localStorage.getItem('user'),
-                    Curso_id : curso.id
-                  });
-                  
-                  inscribirCurso();
-                }}>Inscribirse al curso</button>
-              </div>
-            )
-            )
-          )}
+          <button><Link to="/miscursos">Mis cursos</Link></button>
         </div>
       </div>
- 
+      <div className="muestraCursos">
+        {resultados ? (
+          <p>no se obtuvieron resultados para su busqueda</p>
+        ) : (
+          cursos.map((curso) => (
+            <div classname="cursoIndividual" key={curso.id}>
+              <h2>{curso.nombre}</h2>
+              <p>Descripción: {curso.descripcion}</p>
+              <p>Profesor: {curso.profesor_nombre} {curso.profesor_apellido}</p>
+              <p>Correo del profesor: {curso.profesor_correo}</p>
+              <p>Fecha de Creación: {curso.fecha_creacion}</p>
+              <p>Fecha de Modificación: {curso.fecha_actualizacion}</p>
+              <button onClick={() => {
+                var datos = {
+                  User: localStorage.getItem('user'),
+                  Curso_id: curso.id
+                };
+                console.log(datos)
+                inscribirCurso(datos);
+              }}>Inscribirse al curso</button>
+            </div>
+          )
+          )
+        )}
+      </div>
+    </div>
+
   );
 }
