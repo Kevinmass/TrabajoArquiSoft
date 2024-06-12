@@ -28,7 +28,7 @@ useEffect (()=>{
                 <p>no estás inscripto a ningún curso todavía...</p>
             ) : (
                 cursos.map((curso) => (
-                    <div classname="cursoIndividual" key={curso.id}>
+                    <div className="cursoIndividual" key={curso.id}>
                         <h2>{curso.nombre}</h2>
                         <p>Descripción: {curso.descripcion}</p>
                         <p>Profesor: {curso.profesor_nombre} {curso.profesor_apellido}</p>

@@ -8,19 +8,28 @@ export const Buscador = () => {
   const [resultados, setResultados] = useState(false)
 
 
-  useEffect(() => {
-    const mostrarCursos = () => {
+  const MostrarCursos = () => {
 
-      fetch('http://localhost:8080/cursos')
-        .then(response => response.json())
-        .then(data => {
-          setCursos(data);
-        })
-        .catch(error => console.error('error al cargar los cursos', error))
-    }
-    mostrarCursos();
+    fetch('http://localhost:8080/cursos')
+      .then(response => response.json())
+      .then(data => {
+        setCursos(data);
+      })
+      .catch(error => console.error('error al cargar los cursos', error))
+
+  }
+
+  useEffect(() => {
+
+    MostrarCursos();
   }, [])
 
+  const LimpiarBusqueda = () => {
+    setResultados(false);
+    MostrarCursos();
+    setQuery("");
+
+  }
 
   const inscribirCurso = async (datos) => {
     try {
@@ -38,7 +47,7 @@ export const Buscador = () => {
       alert('inscripción realizada correctamente!')
     }
     catch {
-      alert('error al inscribirse')
+      alert('ya estás inscripto a este curso!')
     }
   }
   const cargarDatos = (e) => {
@@ -54,7 +63,7 @@ export const Buscador = () => {
         setCursos(Array.isArray(data) ? data : [data]);  //con esta linea aseguramos que el curso esté dentro de un array y no tire el error de cursos.map is not a function
         setResultados(data.length === 0);
       })
-      .catch(error => console.error('error al buscar el curso solicitado', error))
+      .catch(error => alert('por favor introduce el nombre del curso deseado', error))
   }
 
 
@@ -64,10 +73,12 @@ export const Buscador = () => {
         <div className='buscador'>
           <input
             type='text'
+            value={query}
             placeholder='Qué curso estás buscando?'
             onChange={cargarDatos}
           />
           <button onClick={Buscar}>Buscar</button>
+          <button onClick={LimpiarBusqueda}>Limpiar busqueda</button>
           <button><Link to="/miscursos">Mis cursos</Link></button>
         </div>
       </div>
@@ -76,7 +87,7 @@ export const Buscador = () => {
           <p>no se obtuvieron resultados para su busqueda</p>
         ) : (
           cursos.map((curso) => (
-            <div classname="cursoIndividual" key={curso.id}>
+            <div className="cursoIndividual" key={curso.id}>
               <h2>{curso.nombre}</h2>
               <p>Descripción: {curso.descripcion}</p>
               <p>Profesor: {curso.profesor_nombre} {curso.profesor_apellido}</p>

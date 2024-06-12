@@ -43,7 +43,7 @@ export const Register = () => {
             window.location.pathname = '/home'
         } catch (error) {
             console.error('Error: ', error.message);
-            alert('ocurrio un error al crear el usuario');
+            alert('error: ya existe una persona con ese usuario/email');
             setUsuario({
                 nombre: '',
                 apellido: '',

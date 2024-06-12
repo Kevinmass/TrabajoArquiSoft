@@ -40,7 +40,7 @@ export const Login = () => {
             alert('bienvenido ' + usuario.user)
             window.location.pathname = '/home'
         } catch (error) {
-            alert('error: ' + error.message);
+            alert(error.message + ': los datos ingresados son incorrectos');
             setUsuario({
                 user: '',
                 email: '',
