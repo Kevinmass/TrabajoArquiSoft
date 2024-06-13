@@ -1,5 +1,5 @@
 .encabezadoPrincipal {
-    background-color: #333;
+    background-color: #000000;
     color: #fff;
     padding: 20px 10px;
     display: flex;
@@ -39,7 +39,6 @@
     background-color: #555;
 }
 
-
 .App {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -59,7 +58,15 @@
     border: 1px solid #ccc;
     border-radius: 5px;
 }
-.buscador button {
+
+.botones-buscador {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Añade espacio entre los botones */
+    margin-top: 10px; /* Añade un poco de espacio superior */
+}
+
+.botones-buscador button, .link-button {
     padding: 10px 20px;
     background-color: #007bff;
     color: #fff;
@@ -67,9 +74,11 @@
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    text-decoration: none; /* Asegura que no haya subrayado en el enlace */
+    text-align: center;
 }
 
-.buscador button:hover {
+.botones-buscador button:hover, .link-button:hover {
     background-color: #0056b3;
 }
 
