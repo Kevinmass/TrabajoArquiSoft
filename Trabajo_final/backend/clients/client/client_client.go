@@ -60,6 +60,13 @@ func POSTlogin(cliente *users.ClientData) (string, error) {
 		return "", err
 	}
 
+	//verificar si el email es del usuario
+	err = Db.Where("email = ?", cliente.Email).First(&clienteDB).Error
+	if err != nil {
+		log.Error("Error getting cliente: ", err)
+		return "", err
+	}
+
 	// se compara la contraseña encriptada con la contraseña ingresada
 	err = bcrypt.CompareHashAndPassword([]byte(clienteDB.Password), []byte(cliente.Password))
 	if err != nil {
