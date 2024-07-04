@@ -3,6 +3,7 @@ package app
 import (
 	clientController "backend/controllers/client_controller"
 	cursosController "backend/controllers/cursos_controller"
+	foroController "backend/controllers/foro_controller"
 	inscripcionController "backend/controllers/inscripcion_controller"
 )
 
@@ -19,4 +20,7 @@ func mapUrls() {
 	router.PUT("/modificarCurso", cursosController.PUTmodificarCurso)
 	router.GET("/cursosPorNombre/:nombre", cursosController.GetCursosPorNombre)
 	router.GET("/GetCursosdelCliente/:user", inscripcionController.GetcursosdelCliente)
+	router.POST("/POSTcomentario", foroController.POSTcomentario)
+	router.GET("/GETcomentarios", foroController.GETcomentarios)
+	router.DELETE("/DELETEcomentario", foroController.DELETEcomentario)
 }

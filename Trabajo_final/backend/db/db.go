@@ -3,6 +3,7 @@ package db
 import (
 	clientClient "backend/clients/client"
 	cursoClient "backend/clients/cursos"
+	foroClient "backend/clients/foro"
 	inscripcionClient "backend/clients/inscripcion"
 
 	"backend/domain/users"
@@ -21,11 +22,11 @@ func init() {
 	// DB Connections Paramters
 	DBName := "railway"                          //Nombre de la base de datos local de ustedes
 	DBUser := "root"                             //usuario de la base de datos, habitualmente root
-	DBPass := "noWcpcjdWIKtyyMqvCrqgEFLIdpJxjdR" //password del root en la instalacion
-	DBHost := "roundhouse.proxy.rlwy.net"        //host de la base de datos. hbitualmente 127.0.0.1
+	DBPass := "LvltbLuKHMTuMvBjSbiLqzbJVNERbQBd" //password del root en la instalacion
+	DBHost := "viaduct.proxy.rlwy.net"           //host de la base de datos. hbitualmente 127.0.0.1
 	// ------------------------
 
-	db, err = gorm.Open("mysql", DBUser+":"+DBPass+"@tcp("+DBHost+":19187)/"+DBName+"?charset=utf8&parseTime=True")
+	db, err = gorm.Open("mysql", DBUser+":"+DBPass+"@tcp("+DBHost+":23886)/"+DBName+"?charset=utf8&parseTime=True")
 	// @:/railway
 	if err != nil {
 		log.Info("Connection Failed to Open")
@@ -39,6 +40,7 @@ func init() {
 	clientClient.Db = db
 	cursoClient.Db = db
 	inscripcionClient.Db = db
+	foroClient.Db = db
 
 }
 
@@ -47,6 +49,7 @@ func StartDB() {
 	db.AutoMigrate(&users.ClientData{})
 	db.AutoMigrate(&users.CursosData{})
 	db.AutoMigrate(&users.InscriptosData{})
+	db.AutoMigrate(&users.Forodata{})
 
 	log.Info("Database Migrated")
 }
