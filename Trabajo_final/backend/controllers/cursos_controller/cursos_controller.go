@@ -11,18 +11,19 @@ import (
 )
 
 func IsAdmin(c *gin.Context) {
-	var cliente *dto.CursoClienteDataDto
-	if err := c.ShouldBindJSON(&cliente); err != nil {
-		log.Error("Error binding json: ", err)
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	user := c.Param("user")
+	if user == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "User parameter is required"})
 		return
 	}
-	err, bool := service.CursoService.IsAdmin(cliente)
+
+	cliente := &dto.CursoClienteDataDto{User: user}
+	err, isAdmin := service.CursoService.IsAdmin(cliente)
 	if err != nil {
 		c.JSON(err.StatusCode, err)
 		return
 	}
-	c.JSON(http.StatusOK, bool)
+	c.JSON(http.StatusOK, isAdmin)
 }
 
 func GetCursosTotales(c *gin.Context) {
