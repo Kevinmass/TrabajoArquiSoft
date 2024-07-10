@@ -38,8 +38,9 @@ export const Register = () => {
             if (!response.ok) {
                 throw new Error('error al crear el usuario')
             }
-            localStorage.setItem('user', usuario.user)
-            alert('Usuario creado correctamente');
+            localStorage.setItem('user', usuario.user);
+            localStorage.setItem('profesor', usuario.profesor);
+            alert('Usuario creado correctamente, bienvenido '+ usuario.user);
             window.location.pathname = '/home'
         } catch (error) {
             console.error('Error: ', error.message);

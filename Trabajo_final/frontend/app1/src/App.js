@@ -6,7 +6,8 @@ import { Register } from './paginas/signup.js';
 import { Home } from './paginas/home.js';
 import { PrimeraPag } from './paginas/primerapag.js'
 import { Detalle } from './paginas/cursodetalle.js'
-import { MisCursos } from './componentes/miscursos.js';
+import { MisCursos } from './paginas/miscursos.js';
+import { HomeProfesor } from './paginas/homeProfesor.js';
 function App() {
   return (
     <div>
@@ -20,6 +21,7 @@ function App() {
             <Route path="/register" Component={Register} />
             <Route path='/cursodetalle' Component={Detalle} />
             <Route path="/miscursos" Component={MisCursos} />
+            <Route path='/homeProfesor' Component={HomeProfesor}/>
 
 
           </Routes>

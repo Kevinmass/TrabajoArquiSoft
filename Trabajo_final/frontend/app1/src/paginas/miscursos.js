@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { HeaderMisCursos } from "./encabezadoMisCursos";
+import { HeaderMisCursos } from "../componentes/encabezadoMisCursos";
 
 export const MisCursos = () => {
 
