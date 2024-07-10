@@ -10,9 +10,9 @@ export const PrimeraPag = () => {
         <Header/>
         <div className="container-horizontal">
         <div className="containers">
-        <h5>Ya tiene una cuenta creada ? </h5>
+        <h5>Tienes una cuenta creada? </h5>
         <div className="botones-buscador">
-        <button><Link to="/login" className="custom-link">Iniciar sesion con tu cuenta</Link></button>
+        <Link to="/login" className="link-button">Iniciar sesión</Link>
         </div>
     </div>
     <br>
@@ -20,7 +20,7 @@ export const PrimeraPag = () => {
     <div className="containers">
         <h5>No tienes cuenta?</h5>
         <div className="botones-buscador">
-        <button><Link to="/register" className="custom-link" >Registrate aqui</Link></button>
+        <Link to="/register" className="link-button" >Registrate aqui</Link>
         </div>
         </div>
         </div>

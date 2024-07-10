@@ -1,15 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { HeaderMisCursos } from "../componentes/encabezadoMisCursos";
+
 export const Detalle = () => {
   const [objeto, setObjeto] = useState({});
   const [comentario, setComentario] = useState("");
+const [mostrarComent, setmostrarComent] = useState ([]);
 
   useEffect(() => {
+   
     const curso = localStorage.getItem("cursoInfo");
     if (curso) {
       setObjeto(JSON.parse(curso));
     }
   }, []);
+
+  useEffect(()=>{
+    if (objeto.id) {
+      mostrarComentarios();
+    } 
+   },[objeto]);
 
   const handleInputChange = (event) => {
     setComentario(event.target.value);
@@ -39,10 +48,31 @@ export const Detalle = () => {
       }
       const coment = await response.json();
       alert("comentario cargado correctamente!");
+      mostrarComentarios();
     } catch {
       alert("parece que hubo un error, trataremos de solucionarlo, no te preocupes.");
     }
   };
+
+
+const mostrarComentarios = async () => {
+try{
+  const response = await fetch("http://localhost:8080/GETcomentarios?curso_id="+ objeto.id)
+  if (!response.ok){
+    throw new Error("error al obtener los comentarios");
+  }
+  const data = await response.json();
+  setmostrarComent(data);
+} catch (error){console.error("error al mostrar los comentarios", error)};
+
+}
+
+
+
+
+
+
+
 
   return (
   
@@ -70,7 +100,22 @@ export const Detalle = () => {
         <button onClick={Comentario}>
           Enviar comentario
         </button>
+        <div className="div-comentarios">
+          <h1>Comentarios sobre el curso:</h1>
+        {mostrarComent.map((coment, index) => (
+          <div key={index}>
+            <div className="" >
+              <p>User: {coment.user}</p>
+              <p>Comentario: {coment.comment}</p>
+            </div>
+           </div>
+          ))}
+
+        
+        
+        </div>
       </div>
     </div>
   );
-};
+
+}
