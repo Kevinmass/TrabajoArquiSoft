@@ -41,7 +41,11 @@ export const Register = () => {
             localStorage.setItem('user', usuario.user);
             localStorage.setItem('profesor', usuario.profesor);
             alert('Usuario creado correctamente, bienvenido '+ usuario.user);
+            if(usuario.profesor){
+                window.location.pathname = '/homeProfesor'
+            } else{
             window.location.pathname = '/home'
+            }
         } catch (error) {
             console.error('Error: ', error.message);
             alert('error: ya existe una persona con ese usuario/email');
