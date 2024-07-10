@@ -75,9 +75,9 @@ export const Buscador = () => {
         <div className="botones-buscador">
           <button onClick={Buscar}>Buscar</button>
           <button onClick={LimpiarBusqueda}>Limpiar búsqueda</button>
-          <Link to="/miscursos" className="link-button">
+          <button><Link to="/miscursos" className="custom-link">
             Mis cursos
-          </Link>
+          </Link></button>
         </div>
       </div>
       <div className="muestraCursos">
@@ -106,6 +106,19 @@ export const Buscador = () => {
               >
                 Inscribirse al curso
               </button>
+              <p></p>
+                <button
+               onClick= { () => {
+                localStorage.setItem("cursoInfo",JSON.stringify(curso))
+               
+                  console.log(curso)
+               }}>
+                  <Link to="/cursodetalle"  className="custom-link">+ info</Link>
+                  </button>
+            
+                
+
+              
             </div>
           ))
         )}

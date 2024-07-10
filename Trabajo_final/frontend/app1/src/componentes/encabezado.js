@@ -16,8 +16,8 @@ export const Header = () => {
             <div className="links-encabezado">
                 <ul>
 
-                    <li><Link to="/login" >Login</Link></li>
-                    <li><Link to="/register" >Registrarse</Link></li>
+                    <li><Link to="/login" className="custom-link">Login</Link></li>
+                    <li><Link to="/register"className="custom-link" >Registrarse</Link></li>
                 </ul>
             </div>
 

@@ -1,5 +1,5 @@
 import React from "react";
-import '../paginas/estilo_paginas.css'
+import '../componentes/estilos.css'
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { Footer } from "../componentes/footer";
 import { Header} from "../componentes/encabezado"
@@ -11,14 +11,17 @@ export const PrimeraPag = () => {
         <div className="container-horizontal">
         <div className="containers">
         <h5>Ya tiene una cuenta creada ? </h5>
-        <button><Link to="/login" >Iniciar sesion con tu cuenta</Link></button>
+        <div className="botones-buscador">
+        <button><Link to="/login" className="custom-link">Iniciar sesion con tu cuenta</Link></button>
+        </div>
     </div>
     <br>
     </br>
-    <div class="containers">
-        <h5>Acaso no tienes cuenta?</h5>
-        
-        <button><Link to="/register" >Registrate aqui</Link></button>
+    <div className="containers">
+        <h5>No tienes cuenta?</h5>
+        <div className="botones-buscador">
+        <button><Link to="/register" className="custom-link" >Registrate aqui</Link></button>
+        </div>
         </div>
         </div>
 

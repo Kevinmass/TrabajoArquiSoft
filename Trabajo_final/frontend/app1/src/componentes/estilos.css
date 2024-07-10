@@ -135,3 +135,9 @@
 .cursoIndividual button:hover {
     background-color: #0056b3;
 }
+
+
+.custom-link {
+    color: inherit; /* Hereda el color del botón */
+    text-decoration: none; /* Quita el subrayado */
+  }

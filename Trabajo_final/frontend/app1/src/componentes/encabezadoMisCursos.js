@@ -15,7 +15,7 @@ export const HeaderMisCursos = () => {
 
             <div className="links-encabezado">
                 <ul>
-                    <li><Link to="/home" >Home</Link></li>
+                    <li><Link to="/home" className="custom-link">Home</Link></li>
 
                 </ul>
             </div>
