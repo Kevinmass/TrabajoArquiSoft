@@ -99,10 +99,14 @@ func PUTmodificarCurso(curso *users.CursosData) error {
 		return err2
 	}
 
-	//modificar el curso, menos el id y la fecha de creacion
+	//modificar el curso
 	cursoDB.Nombre = curso.Nombre
 	cursoDB.Descripcion = curso.Descripcion
-	cursoDB.FechaModificacion = curso.FechaModificacion
+	cursoDB.ProfesorNombre = curso.ProfesorNombre
+	cursoDB.ProfesorApellido = curso.ProfesorApellido
+	cursoDB.ProfesorCorreo = curso.ProfesorCorreo
+	cursoDB.Duracion = curso.Duracion
+	cursoDB.Requisitos = curso.Requisitos
 
 	err = Db.Save(&cursoDB).Error
 	if err != nil {
