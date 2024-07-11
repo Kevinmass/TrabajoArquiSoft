@@ -58,15 +58,12 @@ func (s *inscripcionService) GetcursosdelCliente(relacion *dto.InscriptosDataDto
 
 	for _, cursos := range cursos {
 		cursoDto := &dto.CursosDatadto{
-			ID:               cursos.ID,
-			Nombre:           cursos.Nombre,
-			Descripcion:      cursos.Descripcion,
-			ProfesorNombre:   cursos.ProfesorNombre,
-			ProfesorApellido: cursos.ProfesorApellido,
-			ProfesorCorreo:   cursos.ProfesorCorreo,
-			FechaCreacion:    cursos.FechaCreacion,
-			Duracion:         cursos.Duracion,
-			Requisitos:       cursos.Requisitos,
+			ID:          cursos.ID,
+			Nombre:      cursos.Nombre,
+			Descripcion: cursos.Descripcion,
+			User:        cursos.User,
+			Duracion:    cursos.Duracion,
+			Requisitos:  cursos.Requisitos,
 		}
 		cursosDto = append(cursosDto, *cursoDto)
 	}

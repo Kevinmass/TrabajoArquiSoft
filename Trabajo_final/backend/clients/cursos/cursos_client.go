@@ -102,9 +102,7 @@ func PUTmodificarCurso(curso *users.CursosData) error {
 	//modificar el curso
 	cursoDB.Nombre = curso.Nombre
 	cursoDB.Descripcion = curso.Descripcion
-	cursoDB.ProfesorNombre = curso.ProfesorNombre
-	cursoDB.ProfesorApellido = curso.ProfesorApellido
-	cursoDB.ProfesorCorreo = curso.ProfesorCorreo
+	cursoDB.User = curso.User
 	cursoDB.Duracion = curso.Duracion
 	cursoDB.Requisitos = curso.Requisitos
 
