@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom'
 
 export const HeaderMisCursos = () => {
 
+
+    const profesor = localStorage.getItem('profesor');
     return (
         <header className="encabezadoPrincipal">
 
@@ -15,8 +17,8 @@ export const HeaderMisCursos = () => {
 
             <div className="links-encabezado">
                 <ul>
-                    <li><Link to="/home" className="custom-link">Home</Link></li>
-
+                  
+                  {profesor ? (<li><Link to='/homeProfesor'>Home</Link></li>):(<li><Link to= '/home'>Home</Link></li>) }
                 </ul>
             </div>
 

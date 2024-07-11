@@ -10,8 +10,6 @@ export const Login = () => {
         password: '',
     })
 
-    const [profesor, setProfesor] = useState(false)
-
 
     const handleChange = (e) => {
         setUsuario({
@@ -27,18 +25,19 @@ export const Login = () => {
             throw new Error('error al verificar si es administrador o estudiante.')
         }
         const data = await response.json();
-        setProfesor(data);
+        return data;
         
         } catch (error ){
         
             alert(error.message,": no se pudo verificar si es o no administrador de algun curso.")
+            return false;
         }}
         
     const handleSubmit = async (e) => {
         e.preventDefault()
 
         try {
-            await esProfesor();
+            const isProfesor = await esProfesor();
             const response = await fetch('http://localhost:8080/login', {
                 method: 'POST',
                 headers: {
@@ -50,17 +49,18 @@ export const Login = () => {
                 throw new Error('error al iniciar sesión')
             }
             const data = await response.json();
-            const token = data.token;
             localStorage.setItem('sesionCookie', data.token)
             localStorage.setItem('user', usuario.user)
-            localStorage.setItem('profesor',profesor)
+            localStorage.setItem('profesor',isProfesor)
             alert('bienvenido ' + usuario.user)
-         if(profesor){
-window.location.pathname= '/homeProfesor'
-         }else{
+            if(isProfesor){
+                window.location.pathname = '/homeProfesor'
+            } else{
             window.location.pathname = '/home'
-         }
-            
+            }
+                
+         
+        
         } catch (error) {
             alert(error.message + ': los datos ingresados son incorrectos');
             setUsuario({

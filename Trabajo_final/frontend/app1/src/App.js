@@ -8,6 +8,7 @@ import { PrimeraPag } from './paginas/primerapag.js'
 import { Detalle } from './paginas/cursodetalle.js'
 import { MisCursos } from './paginas/miscursos.js';
 import { HomeProfesor } from './paginas/homeProfesor.js';
+import {CrearCurso} from './paginas/crearCurso.js';
 function App() {
   return (
     <div>
@@ -22,6 +23,7 @@ function App() {
             <Route path='/cursodetalle' Component={Detalle} />
             <Route path="/miscursos" Component={MisCursos} />
             <Route path='/homeProfesor' Component={HomeProfesor}/>
+            <Route path='/crearCurso' Component={CrearCurso}/>
 
 
           </Routes>

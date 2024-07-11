@@ -82,11 +82,10 @@ try{
         <h1>{objeto.nombre}</h1>
         <p>Descripción: {objeto.descripcion}</p>
         <p>
-          Profesor: {objeto.profesor_nombre} {objeto.profesor_apellido}
+          Profesor: {objeto.user}
         </p>
-        <p>Correo del profesor: {objeto.profesor_correo}</p>
-        <p>Fecha de Creación: {objeto.fecha_creacion}</p>
-        <p>Fecha de Modificación: {objeto.fecha_actualizacion}</p>
+        <p>Duracion: {objeto.duracion}</p>
+        <p>Requisitos: {objeto.requisitos}</p>
         <form>
           <input
             type="text"

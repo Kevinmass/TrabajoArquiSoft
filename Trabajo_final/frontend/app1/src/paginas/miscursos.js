@@ -31,10 +31,9 @@ useEffect (()=>{
                     <div className="cursoIndividual" key={curso.id}>
                         <h2>{curso.nombre}</h2>
                         <p>Descripción: {curso.descripcion}</p>
-                        <p>Profesor: {curso.profesor_nombre} {curso.profesor_apellido}</p>
-                        <p>Correo del profesor: {curso.profesor_correo}</p>
-                        <p>Fecha de Creación: {curso.fecha_creacion}</p>
-                        <p>Fecha de Modificación: {curso.fecha_actualizacion}</p>
+                        <p>Profesor: {curso.user}</p>
+                        <p>Duracion: {curso.duracion}</p>
+                        <p>Requisitos: {curso.requisitos}</p>
                     </div>
 
                 )))}
