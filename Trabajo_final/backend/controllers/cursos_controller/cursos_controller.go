@@ -76,23 +76,10 @@ func POSTcrearCurso(c *gin.Context) {
 		return
 	}
 
-	// Get the total number of cursos
-	totalCursos, err := service.CursoService.GetTotalCursos()
-	if err != nil {
-		c.JSON(err.StatusCode, err)
-		return
-	}
-
-	// Assign the last curso ID
-	cursoID := totalCursos
-
-	// Convert cursoID to uint
-	cursoIDUint := uint(cursoID)
-
 	// Combine the user and curso ID
 	userCurso := &dto.InscriptosDataDto{
 		User:    cursoV.User,
-		CursoID: cursoIDUint,
+		CursoID: curso.ID,
 	}
 	log.Debug(userCurso.User)
 	log.Debug(userCurso.CursoID)

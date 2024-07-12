@@ -45,7 +45,6 @@ func (s *cursoService) POSTcrearCurso(cursoV *dto.CursoClienteDataDto) (*dto.Cur
 
 	cursoData := &users.CursosData{
 
-		ID:          cursoV.ID,
 		Nombre:      cursoV.Nombre,
 		Descripcion: cursoV.Descripcion,
 		User:        cursoV.User,
@@ -64,6 +63,8 @@ func (s *cursoService) POSTcrearCurso(cursoV *dto.CursoClienteDataDto) (*dto.Cur
 	if err != nil {
 		return nil, &e.RestErr{Message: err.Error(), StatusCode: 500}
 	}
+
+	cursoV.ID = cursoData.ID
 
 	return cursoV, nil
 
