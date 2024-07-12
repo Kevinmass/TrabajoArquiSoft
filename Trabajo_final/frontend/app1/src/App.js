@@ -1,6 +1,6 @@
 import './App.css';
-import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Route, Switch, Routes } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Login } from './paginas/login.js'
 import { Register } from './paginas/signup.js';
 import { Home } from './paginas/home.js';

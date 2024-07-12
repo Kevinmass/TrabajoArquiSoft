@@ -1,6 +1,6 @@
 import React from "react";
 import '../componentes/estilos.css'
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Footer } from "../componentes/footer";
 import { Header} from "../componentes/encabezado"
 
