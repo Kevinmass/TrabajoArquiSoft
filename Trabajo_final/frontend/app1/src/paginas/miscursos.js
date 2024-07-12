@@ -6,9 +6,11 @@ export const MisCursos = () => {
     const [resultados, setResultados] = useState(false)
     const [cursos, setCursos] = useState([])
 
-    const usuario = localStorage.getItem('user')
+    const usuario = localStorage.getItem('user');
+
+    const esProfesor = localStorage.getItem('profesor') === 'true';
+
 useEffect (()=>{
-    
     fetch('http://localhost:8080/GetCursosdelCliente/' + usuario)
     .then(response => response.json())
     .then(data => {
@@ -20,7 +22,29 @@ useEffect (()=>{
 }, [usuario]);
    
 
+const eliminarCurso = async (cursoid) =>{
 
+try {
+    const response = await fetch('http://localhost:8080/eliminarCurso',{
+method: 'POST',
+headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    user: usuario,
+    id: cursoid
+  }),
+    })
+    if (!response.ok) {
+        throw new Error("error al eliminar el curso");
+      }
+      setCursos(cursos.filter(curso => curso.id !== cursoid));
+
+} catch(error){
+    alert (error.message)
+}
+
+}
     return <div>
         <HeaderMisCursos />
         <div className="muestraCursos">
@@ -34,6 +58,11 @@ useEffect (()=>{
                         <p>Profesor: {curso.user}</p>
                         <p>Duracion: {curso.duracion}</p>
                         <p>Requisitos: {curso.requisitos}</p>
+                        {esProfesor ? (
+                            <div>
+                            <button onClick={() => eliminarCurso(curso.id)}>Eliminar curso</button>  
+                        <button>Modificar curso</button></div> ):(<div>no es profesor ok </div>
+                       ) }
                     </div>
 
                 )))}

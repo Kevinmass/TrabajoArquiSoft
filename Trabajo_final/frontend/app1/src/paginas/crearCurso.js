@@ -26,9 +26,10 @@ const [curso,setCurso] = useState({
         e.preventDefault();
         try{
             
-            curso.user=localStorage.getItem('user');
+            const usuario = localStorage.getItem('user');
 
-        const response = await fetch ('http://localhost:8080/crearCurso',{
+            curso.user=usuario;
+            const response = await fetch ('http://localhost:8080/crearCurso',{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
