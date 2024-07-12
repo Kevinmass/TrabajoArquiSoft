@@ -68,7 +68,7 @@ const [curso,setCurso] = useState({
                     Estas en la página de crear cursos, a continuacion se te pediran los datos que se necesita para crear un curso.
                 </h1>
                 <div className="ingresarDatos">
-                    <form onSubmit={cursoNuevo}>
+                    <form onSubmit={cursoNuevo} >
                         <div className="cajas_inputs">
                         <h2>Nombre del curso</h2>
                         <input 
@@ -115,7 +115,6 @@ const [curso,setCurso] = useState({
                         required
                         />    
                         </div>
-
                         <button type="submit">Crear curso</button>
                     </form>
                 </div>

@@ -9,6 +9,7 @@ import { Detalle } from './paginas/cursodetalle.js'
 import { MisCursos } from './paginas/miscursos.js';
 import { HomeProfesor } from './paginas/homeProfesor.js';
 import {CrearCurso} from './paginas/crearCurso.js';
+import { HomeArchivos } from './paginas/homeArchivos.js';
 function App() {
   return (
     <div>
@@ -24,6 +25,7 @@ function App() {
             <Route path="/miscursos" Component={MisCursos} />
             <Route path='/homeProfesor' Component={HomeProfesor}/>
             <Route path='/crearCurso' Component={CrearCurso}/>
+            <Route path='/homeArchivos' Component={HomeArchivos}/>
 
 
           </Routes>

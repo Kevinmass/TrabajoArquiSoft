@@ -7,8 +7,11 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
+	"github.com/jinzhu/gorm"
 	log "github.com/sirupsen/logrus"
 )
+
+var Db *gorm.DB
 
 func IsAdmin(c *gin.Context) {
 	user := c.Param("user")

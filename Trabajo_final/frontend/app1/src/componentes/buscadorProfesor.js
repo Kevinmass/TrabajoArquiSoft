@@ -67,6 +67,7 @@ const [query, setQuery] = useState("");
         <Link to='/crearCurso' className="link-button">
         Crear curso
         </Link>
+        <Link to='/homeArchivos' className="link-button">Subir archivos</Link>
         </div>
       </div>
       <div className="muestraCursos">

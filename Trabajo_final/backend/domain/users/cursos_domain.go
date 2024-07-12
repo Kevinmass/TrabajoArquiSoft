@@ -1,8 +1,8 @@
 package users
 
 type CursosData struct {
-	ID          uint   `gorm:"primary_key;auto_increment"`
-	Nombre      string `gorm:"type:varchar(350); not null;case_sensitive:true"`
+	ID          uint   `gorm:"primary_key;"`
+	Nombre      string `gorm:"type:varchar(350); not null;case_sensitive:true; unique"`
 	User        string `gorm:"type:varchar(350); not null;case_sensitive:true"`
 	Descripcion string `gorm:"type:varchar(350); not null"`
 	Duracion    string `gorm:"type:varchar(350); not null"`

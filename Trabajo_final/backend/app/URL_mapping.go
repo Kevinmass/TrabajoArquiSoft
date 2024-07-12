@@ -1,6 +1,7 @@
 package app
 
 import (
+	archivoController "backend/controllers/archivos_controller"
 	clientController "backend/controllers/client_controller"
 	cursosController "backend/controllers/cursos_controller"
 	foroController "backend/controllers/foro_controller"
@@ -23,4 +24,6 @@ func mapUrls() {
 	router.POST("/POSTcomentario", foroController.POSTcomentario)
 	router.GET("/GETcomentarios", foroController.GETcomentarios)
 	router.DELETE("/DELETEcomentario", foroController.DELETEcomentario)
+	router.POST("/POSTarchivo", archivoController.CreateAndWriteFile)
+	router.GET("/GETarchivo", archivoController.ReadFile)
 }
