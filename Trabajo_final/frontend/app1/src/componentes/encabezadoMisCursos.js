@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 export const HeaderMisCursos = () => {
 
 
-    const profesor = localStorage.getItem('profesor');
+    const profesor = localStorage.getItem('profesor') ==='true';
     return (
         <header className="encabezadoPrincipal">
 
