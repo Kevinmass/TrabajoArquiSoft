@@ -73,16 +73,19 @@ const [query, setQuery] = useState("");
         {resultados ? (
           <p>no se obtuvieron resultados para su busqueda</p>
         ) : (
-          cursos.map((curso) => (
-            <div className="cursoIndividual" key={curso.id}>
-              <h2>{curso.nombre}</h2>
-              <p>Descripción: {curso.descripcion}</p>
-              <p>Profesor: {curso.user}</p>
-              <p>Duracion: {curso.duracion}</p>
-              <p>Requisitos: {curso.requisitos}</p>             
-
-            </div>
-          ))
+          cursos && cursos.length > 0 ? (
+            cursos.map((curso) => (
+              <div className="cursoIndividual" key={curso.id}>
+                <h2>{curso.nombre}</h2>
+                <p>Descripción: {curso.descripcion}</p>
+                <p>Profesor: {curso.user}</p>
+                <p>Duracion: {curso.duracion}</p>
+                <p>Requisitos: {curso.requisitos}</p>             
+              </div>
+            ))
+          ) : (
+            <p>No hay cursos disponibles</p>
+          )
         )}
       </div>
     </div>

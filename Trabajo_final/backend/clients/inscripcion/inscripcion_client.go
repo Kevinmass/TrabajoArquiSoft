@@ -10,7 +10,7 @@ import (
 
 var Db *gorm.DB
 
-func POSTinscripcion(clienteID, cursoID uint) e.RestErr {
+func POSTinscripcion(clienteID uint, cursoID uint) e.RestErr {
 
 	// verificar si existe el cliente y el curso
 	cliente := users.ClientData{}

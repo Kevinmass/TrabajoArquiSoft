@@ -17,6 +17,7 @@ type cursoServiceInterface interface {
 	PUTmodificarCurso(cursoV *dto.CursoClienteDataDto) (*dto.CursoClienteDataDto, *e.RestErr)
 	EliminarCurso(cursoV *dto.CursoClienteDataDto) *e.RestErr
 	GetCursosPorNombre(nombre string) ([]dto.CursosDatadto, *e.RestErr)
+	GetTotalCursos() (int, *e.RestErr)
 }
 
 var (
@@ -185,4 +186,12 @@ func (s *cursoService) GetCursosPorNombre(nombre string) ([]dto.CursosDatadto, *
 
 	return cursoDto, err2
 
+}
+
+func (s *cursoService) GetTotalCursos() (int, *e.RestErr) {
+	cursos, err := cursoClient.GetCursosTotales()
+	if err != nil {
+		return 0, &e.RestErr{Message: err.Error(), StatusCode: 500}
+	}
+	return len(cursos), nil
 }

@@ -144,3 +144,13 @@ func GetCursosPorNombre(nombreDatabase string) ([]users.CursosData, error) {
 	}
 	return cursos, nil
 }
+
+func GetTotalCursos() (int, error) {
+	var count int
+	err := Db.Model(&users.CursosData{}).Count(&count).Error
+	if err != nil {
+		log.Error("Error getting total cursos: ", err)
+		return 0, err
+	}
+	return count, nil
+}
