@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { HeaderMisCursos } from "../componentes/encabezadoMisCursos";
+import { Link } from "react-router-dom";
 
 export const MisCursos = () => {
 
@@ -61,7 +62,9 @@ headers: {
                         {esProfesor ? (
                             <div>
                             <button onClick={() => eliminarCurso(curso.id)}>Eliminar curso</button>  
-                        <button>Modificar curso</button></div> ):(<div>no es profesor ok </div>
+                        <button><Link to='/modificarCurso' onClick= { () => {
+                localStorage.setItem('cursoID',JSON.stringify(curso.id))
+               }}>Modificar curso</Link></button></div> ):(<div>no es profesor ok </div>
                        ) }
                     </div>
 

@@ -117,6 +117,9 @@ func (s *cursoService) PUTmodificarCurso(cursoV *dto.CursoClienteDataDto) (*dto.
 		ID:          cursoV.ID,
 		Nombre:      cursoV.Nombre,
 		Descripcion: cursoV.Descripcion,
+		User:        cursoV.User,
+		Duracion:    cursoV.Descripcion,
+		Requisitos:  cursoV.Requisitos,
 	}
 
 	_, CheckAdmin := s.IsAdmin(cursoV)

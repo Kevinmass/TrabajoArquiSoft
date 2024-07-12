@@ -10,6 +10,9 @@ import { MisCursos } from './paginas/miscursos.js';
 import { HomeProfesor } from './paginas/homeProfesor.js';
 import {CrearCurso} from './paginas/crearCurso.js';
 import { HomeArchivos } from './paginas/homeArchivos.js';
+import { ModificarCurso } from './paginas/modificarCurso.js';
+
+
 function App() {
   return (
     <div>
@@ -26,7 +29,7 @@ function App() {
             <Route path='/homeProfesor' Component={HomeProfesor}/>
             <Route path='/crearCurso' Component={CrearCurso}/>
             <Route path='/homeArchivos' Component={HomeArchivos}/>
-
+            <Route path='/modificarCurso' Component={ModificarCurso}/>
 
           </Routes>
         </Router>
