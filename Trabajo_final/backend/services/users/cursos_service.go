@@ -119,7 +119,7 @@ func (s *cursoService) PUTmodificarCurso(cursoV *dto.CursoClienteDataDto) (*dto.
 		Nombre:      cursoV.Nombre,
 		Descripcion: cursoV.Descripcion,
 		User:        cursoV.User,
-		Duracion:    cursoV.Descripcion,
+		Duracion:    cursoV.Duracion,
 		Requisitos:  cursoV.Requisitos,
 	}
 
