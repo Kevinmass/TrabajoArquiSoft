@@ -24,6 +24,6 @@ func mapUrls() {
 	router.POST("/POSTcomentario", foroController.POSTcomentario)
 	router.GET("/GETcomentarios", foroController.GETcomentarios)
 	router.DELETE("/DELETEcomentario", foroController.DELETEcomentario)
-	router.POST("/POSTarchivo", archivoController.UploadFile)
-	router.GET("/GETarchivo", archivoController.ReadFile)
+	router.POST("/POSTarchivo/:id", archivoController.POSTArchivos)
+	router.GET("/GETarchivo/:id", archivoController.GetArchivos)
 }
