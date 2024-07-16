@@ -8,7 +8,7 @@ export const HomeArchivos = () => {
   const [files, setFiles] = useState([]);
   const [fetchCursoId, setFetchCursoId] = useState("");
 
-  const handleFileChange = (event) => {
+  const handleArchivo = (event) => {
     const selectedFile = event.target.files[0];
     setFile(selectedFile);
   };
@@ -21,14 +21,14 @@ export const HomeArchivos = () => {
     setFetchCursoId(event.target.value);
   };
 
-  const handleFileUpload = async () => {
+  const handleUploadArchivo = async () => {
     if (!file) {
-      alert("Please select a file first!");
+      alert("Por favor seleccione un archivo!");
       return;
     }
 
     if (!cursoId) {
-      alert("Please enter a curso ID!");
+      alert("Por favor coloque un id de curso!");
       return;
     }
 
@@ -42,17 +42,17 @@ export const HomeArchivos = () => {
         body: formData,
       });
 
-      if (response.status === 201) {
-        alert("File uploaded successfully!");
+      if (response.status != 500) {
+        alert("Archivo subido exitosamente");
       } else {
-        alert("Failed to upload file.");
+        alert("Fallo al subir el archivo");
       }
     } catch (error) {
-      console.error("Error uploading file:", error);
+      console.error("Error subiendo archivo: ", error);
     }
   };
 
-  const fetchFiles = async () => {
+  const BuscarArchivos = async () => {
     if (!fetchCursoId) {
       alert("Please enter a curso ID!");
       return;
@@ -65,10 +65,10 @@ export const HomeArchivos = () => {
         const data = await response.json();
         setFiles(data);
       } else {
-        alert("Failed to fetch files.");
+        alert("Fallo al conseguir los archivos");
       }
     } catch (error) {
-      console.error("Error fetching files:", error);
+      console.error("Error buscando archivos: ", error);
     }
   };
 
@@ -79,7 +79,7 @@ export const HomeArchivos = () => {
         <h1>Estás en la página de Archivos.</h1>
         <div className="ingresarDatos">
           <div>
-            <input type="file" onChange={handleFileChange} />
+            <input type="file" onChange={handleArchivo} />
             {file && <p>Archivo seleccionado: {file.name}</p>}
             <input
               type="text"
@@ -87,20 +87,25 @@ export const HomeArchivos = () => {
               value={cursoId}
               onChange={handleCursoIdChange}
             />
-            <button onClick={handleFileUpload}>Subir</button>
+            <button onClick={handleUploadArchivo}>Subir</button>
           </div>
           <div>
-            <h2>Fetch Files</h2>
+            <h2>Buscador de archivos por curso</h2>
             <input
               type="text"
               placeholder="Ingrese el ID del curso"
               value={fetchCursoId}
               onChange={handleFetchCursoIdChange}
             />
-            <button onClick={fetchFiles}>Fetch Files</button>
+            <button onClick={BuscarArchivos}>Buscar archivos</button>
             <ul>
               {files.map((file, index) => (
-                <li key={index}>{file.name}</li>
+                <li key={index}>
+                  <p>{file.name}</p>
+                  {file.base64 && (
+                    <img src={`data:image/png;base64,${file.base64}`} alt={file.name} width="200" />
+                  )}
+                </li>
               ))}
             </ul>
           </div>

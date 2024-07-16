@@ -21,7 +21,7 @@ func GuardarArchivo(file *dto.ArchivodataDto, cursoId string) *e.RestErr {
 
 	result := Db.Create(archivo)
 	if err := result.Error; err != nil {
-		return &e.RestErr{Message: "Cannot save to database", StatusCode: 500}
+		return &e.RestErr{Message: "Error al subir a la base de datos", StatusCode: 500}
 	}
 
 	return nil
@@ -30,7 +30,7 @@ func GuardarArchivo(file *dto.ArchivodataDto, cursoId string) *e.RestErr {
 func GetFiles(cursoId string) ([]dto.ArchivodataDto, *e.RestErr) {
 	var archivos []users.Archivodata
 	if err := Db.Where("curso_id = ?", cursoId).Find(&archivos).Error; err != nil {
-		return nil, &e.RestErr{Message: "Cannot fetch files from database", StatusCode: 500}
+		return nil, &e.RestErr{Message: "Error al buscar en la base de datos", StatusCode: 500}
 	}
 
 	var archivosDto []dto.ArchivodataDto
