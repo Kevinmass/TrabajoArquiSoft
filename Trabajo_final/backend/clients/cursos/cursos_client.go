@@ -11,7 +11,7 @@ var Db *gorm.DB
 
 func GetCursosTotales() ([]users.CursosData, error) {
 	var cursos []users.CursosData
-	err := Db.Find(&cursos).Error
+	err := Db.Where("nombre <> ?", "nulo").Find(&cursos).Error
 	if err != nil {
 		log.Error("Error getting cursos: ", err)
 		return nil, err

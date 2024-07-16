@@ -1,9 +1,7 @@
 package dto
 
 type ArchivodataDto struct {
-	CursoNombre string `json:"curso_nombre"`
-	Nombre      string `json:"nombre"`
-	Ruta        string `json:"ruta"`
+	Base64 string `json:"base64" db:"base64"`
 }
 
 type ArchivoDto []ArchivodataDto

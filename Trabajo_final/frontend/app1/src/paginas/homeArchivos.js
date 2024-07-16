@@ -1,74 +1,59 @@
 import React, { useState } from "react";
-import { Header } from "../componentes/encabezado";
+import { HeaderMisCursos } from "../componentes/encabezadoMisCursos"
 import { Footer } from "../componentes/footer";
-
 export const HomeArchivos = () => {
-  const [content, setContent] = useState("");
-  const [error, setError] = useState(null);
+  
+  const [file, setFile] = useState(null);
 
-  const handleCreateAndWriteFile = async () => {
+  const handleFileChange = (event) => {
+    const selectedFile = event.target.files[0];
+    setFile(selectedFile);
+  };
+
+  const handleFileUpload = async () => {
+    if (!file) {
+      alert("Please select a file first!");
+      return;
+    }
+  
+    const formData = new FormData();
+    formData.append("file", file);
+  
+      console.log("Uploading file:", file);
     try {
-      console.log(content);
-      const response = await fetch("http://localhost:8080/POSTarchivo", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ content }),
+      const response = await fetch('http://localhost:8080/POSTarchivo', {
+        method: 'POST',
+        body: formData
       });
-
-      if (!response.ok) {
-        throw new Error("Failed to create and write file");
+  
+      if (response.status === 201) {
+        alert("File uploaded successfully!");
+      } else {
+        alert("Failed to upload file.");
       }
-
-      setError(null);
     } catch (error) {
-      setError(error.message);
+      console.error("Error uploading file:", error);
     }
   };
-/*
-  const handleReadFile = async () => {
-    try {
-      const response = await fetch("http://localhost:8080/ReadFile", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ path: filePath }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to read file");
-      }
-
-      const data = await response.json();
-      // Handle the received file content data
-      console.log(data);
-      setError(null);
-    } catch (error) {
-      setError(error.message);
+  
+      return (
+  
+          <div>
+              <HeaderMisCursos/>
+              <div>           
+                  <h1>
+                      Estas en la página de crear cursos, a continuacion se te pediran los datos que se necesita para crear un curso.
+                  </h1>
+                  <div className="ingresarDatos">
+                          <div>
+                          <input type="file" onChange={handleFileChange}  />
+                          {file && <p>Archivo seleccionado: {file.name}</p>}
+                          <button onClick={handleFileUpload}>Subir</button>
+                          </div>
+                          <Footer/>
+                  </div>
+              </div>
+          </div>
+          
+      );
     }
-  };
-*/
-  return (
-    <div>
-      <Header />
-      <form>
-        
-        <label htmlFor="content">Contenido:</label>
-        <textarea
-          id="content"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-        ></textarea>
-        <br />
-        <button type="button" onClick={handleCreateAndWriteFile}>
-          Crear archivo
-        </button>
-      </form>
-      {error && <p>{error}</p>}
-      <Footer />
-    </div>
-  );
-};
-
