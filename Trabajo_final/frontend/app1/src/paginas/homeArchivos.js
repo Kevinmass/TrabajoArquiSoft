@@ -7,6 +7,7 @@ export const HomeArchivos = () => {
   const [cursoId, setCursoId] = useState("");
   const [files, setFiles] = useState([]);
   const [fetchCursoId, setFetchCursoId] = useState("");
+  const [noFilesFound, setNoFilesFound] = useState(false);
 
   const handleArchivo = (event) => {
     const selectedFile = event.target.files[0];
@@ -35,14 +36,13 @@ export const HomeArchivos = () => {
     const formData = new FormData();
     formData.append("file", file);
 
-
     try {
       const response = await fetch("http://localhost:8080/POSTarchivo/"+ cursoId, {
         method: "POST",
         body: formData,
       });
 
-      if (response.status != 500) {
+      if (response.status !== 500) {
         alert("Archivo subido exitosamente");
       } else {
         alert("Fallo al subir el archivo");
@@ -64,11 +64,14 @@ export const HomeArchivos = () => {
       if (response.ok) {
         const data = await response.json();
         setFiles(data);
+        setNoFilesFound(data.length === 0);
       } else {
         alert("Fallo al conseguir los archivos");
+        setNoFilesFound(true);
       }
     } catch (error) {
       console.error("Error buscando archivos: ", error);
+      setNoFilesFound(true);
     }
   };
 
@@ -81,6 +84,11 @@ export const HomeArchivos = () => {
           <div>
             <input type="file" onChange={handleArchivo} />
             {file && <p>Archivo seleccionado: {file.name}</p>}
+            {file && (
+              <div>
+                <img src={URL.createObjectURL(file)} alt={file.name} width="200" />
+              </div>
+            )}
             <input
               type="text"
               placeholder="Ingrese el ID del curso"
@@ -98,16 +106,20 @@ export const HomeArchivos = () => {
               onChange={handleFetchCursoIdChange}
             />
             <button onClick={BuscarArchivos}>Buscar archivos</button>
-            <ul>
-              {files.map((file, index) => (
-                <li key={index}>
-                  <p>{file.name}</p>
-                  {file.base64 && (
-                    <img src={`data:image/png;base64,${file.base64}`} alt={file.name} width="200" />
-                  )}
-                </li>
-              ))}
-            </ul>
+            {noFilesFound ? (
+              <p>No hay fotos relacionadas</p>
+            ) : (
+              <ul>
+                {files.map((file, index) => (
+                  <li key={index}>
+                    <p>{file.name}</p>
+                    {file.base64 && (
+                      <img src={`data:image/png;base64,${file.base64}`} alt={file.name} width="200" />
+                    )}
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
           <Footer />
         </div>

@@ -78,6 +78,7 @@ export const Buscador = () => {
           <Link to="/miscursos" className="link-button">
             Mis cursos
           </Link>
+          <Link to='/homeArchivos' className="link-button">Subir archivos</Link>
         </div>
       </div>
       <div className="muestraCursos">
