@@ -79,6 +79,7 @@ const [query, setQuery] = useState("");
               <div className="cursoIndividual" key={curso.id}>
                 <h2>{curso.nombre}</h2>
                 <p>Descripción: {curso.descripcion}</p>
+                <p>Id: {curso.id}</p>
                 <p>Profesor: {curso.user}</p>
                 <p>Duracion: {curso.duracion}</p>
                 <p>Requisitos: {curso.requisitos}</p>             

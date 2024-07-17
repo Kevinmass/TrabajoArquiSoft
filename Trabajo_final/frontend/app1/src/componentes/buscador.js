@@ -88,6 +88,7 @@ export const Buscador = () => {
           cursos.map((curso) => (
             <div className="cursoIndividual" key={curso.id}>
               <h2>{curso.nombre}</h2>
+              <p>Id: {curso.id} </p>
               <p>Descripción: {curso.descripcion}</p>
               <p>
                 Profesor: {curso.user} </p>

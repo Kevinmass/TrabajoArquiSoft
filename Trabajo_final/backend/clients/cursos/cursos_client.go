@@ -53,7 +53,6 @@ func POSTcrearCurso(curso *users.CursosData) error {
 	}
 	return nil
 }
-
 func EliminarCurso(curso *users.CursosData) error {
 
 	//con solo el id del curso, se puede eliminar
@@ -74,6 +73,21 @@ func EliminarCurso(curso *users.CursosData) error {
 		err = Db.Delete(&inscripcion).Error
 		if err != nil {
 			log.Error("Error deleting inscripcion: ", err)
+			return err
+		}
+	}
+
+	//eliminar los archivos relacionados al curso
+	var archivos []users.Archivodata
+	err = Db.Where("curso_id = ?", curso.ID).Find(&archivos).Error
+	if err != nil {
+		log.Error("Error getting archivos: ", err)
+		return err
+	}
+	for _, archivo := range archivos {
+		err = Db.Delete(&archivo).Error
+		if err != nil {
+			log.Error("Error deleting archivo: ", err)
 			return err
 		}
 	}

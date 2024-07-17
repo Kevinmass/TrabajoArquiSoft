@@ -22,11 +22,11 @@ func init() {
 	// DB Connections Paramters
 	DBName := "railway"                          //Nombre de la base de datos local de ustedes
 	DBUser := "root"                             //usuario de la base de datos, habitualmente root
-	DBPass := "nTCVOGWadvcBeXngVHaxsnZkgpBHhERn" //password del root en la instalacion
-	DBHost := "viaduct.proxy.rlwy.net"           //host de la base de datos. habitualmente 127.0.0.1
+	DBPass := "RYfrUHIuTBRIzaXiTzwKBdVhsaMbYeDO" //password del root en la instalacion
+	DBHost := "roundhouse.proxy.rlwy.net"        //host de la base de datos. habitualmente 127.0.0.1
 	// ------------------------
 
-	db, err = gorm.Open("mysql", DBUser+":"+DBPass+"@tcp("+DBHost+":46723)/"+DBName+"?charset=utf8&parseTime=True")
+	db, err = gorm.Open("mysql", DBUser+":"+DBPass+"@tcp("+DBHost+":44693)/"+DBName+"?charset=utf8&parseTime=True")
 
 	// @:/railway
 	if err != nil {
