@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { HeaderMisCursos } from "../componentes/encabezadoMisCursos";
 import { Footer } from "../componentes/footer";
+import '../componentes/estilos.css'
 
 export const HomeArchivos = () => {
   const [file, setFile] = useState(null);
@@ -80,24 +81,29 @@ export const HomeArchivos = () => {
       <HeaderMisCursos />
       <div>
         <h1>Estás en la página de Archivos.</h1>
+       
         <div className="ingresarDatos">
           <div>
-            <input type="file" onChange={handleArchivo} />
+            <input  type="file" onChange={handleArchivo} />
             {file && <p>Archivo seleccionado: {file.name}</p>}
             {file && (
               <div>
                 <img src={URL.createObjectURL(file)} alt={file.name} width="200" />
               </div>
             )}
-            <input
-              type="text"
-              placeholder="Ingrese el ID del curso"
-              value={cursoId}
-              onChange={handleCursoIdChange}
-            />
-            <button onClick={handleUploadArchivo}>Subir</button>
+            <div className="ingresarDatos">  
+               
+              <input
+                type="text"
+                placeholder="Ingrese el ID del curso"
+                value={cursoId}
+                onChange={handleCursoIdChange}
+              />
+              <button className="boton-sesion" onClick={handleUploadArchivo}>Subir</button>
+             
+            </div>
           </div>
-          <div>
+          <div className="ingresarDatos"> 
             <h2>Buscador de archivos por curso</h2>
             <input
               type="text"
@@ -105,22 +111,23 @@ export const HomeArchivos = () => {
               value={fetchCursoId}
               onChange={handleFetchCursoIdChange}
             />
-            <button onClick={BuscarArchivos}>Buscar archivos</button>
-            {noFilesFound ? (
-              <p>No hay fotos relacionadas</p>
-            ) : (
-              <ul>
-                {files.map((file, index) => (
-                  <li key={index}>
-                    <p>{file.name}</p>
-                    {file.base64 && (
-                      <img src={`data:image/png;base64,${file.base64}`} alt={file.name} width="200" />
-                    )}
-                  </li>
-                ))}
-              </ul>
-            )}
+            <button className="boton-sesion" onClick={BuscarArchivos}>Buscar archivos</button>
+            
           </div>
+          {noFilesFound ? (
+            <p>No hay fotos relacionadas</p>
+          ) : (
+            <ul>
+              {files.map((file, index) => (
+                <li key={index}>
+                  <p>{file.name}</p>
+                  {file.base64 && (
+                    <img src={`data:image/png;base64,${file.base64}`} alt={file.name} width="200" />
+                  )}
+                </li>
+              ))}
+            </ul>
+          )}
           <Footer />
         </div>
       </div>

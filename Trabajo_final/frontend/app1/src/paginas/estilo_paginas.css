@@ -183,4 +183,9 @@ body {
   .desplegable.show {
     animation: desplegar 0.5s forwards;
   }
+  .ingresarDatos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
   
