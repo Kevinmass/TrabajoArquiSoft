@@ -1,0 +1,10 @@
+FROM golang:1.18.1-alpine3.15
+WORKDIR /app
+
+COPY . .
+RUN go mod download
+RUN go build -o /docker-go
+
+EXPOSE 8080
+
+CMD [ "/docker-go" ]
