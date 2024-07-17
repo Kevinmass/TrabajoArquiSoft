@@ -66,7 +66,7 @@ const [curso,setCurso] = useState({
             <HeaderMisCursos/>
             <div>           
                 <h1>
-                    Estas en la página de crear cursos, a continuacion se te pediran los datos que se necesita para crear un curso.
+                    Complete los siguientes campos para poder crear su curso
                 </h1>
                 <div className="ingresarDatos">
                     <form onSubmit={cursoNuevo} >
