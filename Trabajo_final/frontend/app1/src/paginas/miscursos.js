@@ -41,6 +41,7 @@ headers: {
       }
       setCursos(cursos.filter(curso => curso.id !== cursoid));
 
+      alert("Eliminaste el curso con éxito!");
 } catch(error){
     alert (error.message)
 }
@@ -62,9 +63,9 @@ headers: {
                         {esProfesor ? (
                             <div>
                             <button onClick={() => eliminarCurso(curso.id)}>Eliminar curso</button>  
-                        <button><Link to='/modificarCurso' onClick= { () => {
+                        <Link to='/modificarCurso' className="link-button" onClick= { () => {
                 localStorage.setItem('cursoID',JSON.stringify(curso.id))
-               }}>Modificar curso</Link></button></div> ):(<div>no es profesor ok </div>
+               }}>Modificar curso</Link></div> ):(<div>no es profesor ok </div>
                        ) }
                     </div>
 

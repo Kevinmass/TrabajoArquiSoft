@@ -23,8 +23,8 @@ export const ModificarCurso =()=> {
             [e.target.name]: e.target.value,
         });
     }
-const cursoModificado = async () => {
-
+const cursoModificado = async (e) => {
+e.preventDefault();
     try {
         const response = await fetch('http://localhost:8080/modificarCurso',{
             method: 'PUT',
@@ -36,6 +36,7 @@ const cursoModificado = async () => {
         if(!response.ok){
             throw new Error("ocurrio un error al consumir el endpoint para modificarCurso")
         }
+        alert("Modificaste el curso con éxito!");
     window.location.pathname='/miscursos';
     } catch (err) {
         alert(err.message)
